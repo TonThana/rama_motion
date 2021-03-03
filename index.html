@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rama motion</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Proza+Libre&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=K2D:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/regis.css" />
+    <link rel="stylesheet" type="text/css" href="css/game.css" />
+</head>
+
+<body>
+    <div id='regis'>
+        <div class='regis-container k2d'>
+            <p class="regis-title">ข้อมูล</p>
+            <form class="regis-form">
+                <input name="name" class="regis-form1-fname" type="text" placeholder="ชื่อ นามสกุล" tabindex="1">
+
+                <p>และ/หรือ</p>
+
+                <input name="hn" class="regis-form2-hn" type="text" placeholder="เลขรพ." tabindex="2">
+                <button type="submit" name="submit" id="submit" class="regis-submit" tabindex="3">เริ่ม</button>
+            </form>
+            <p id="form-error" class="error-hidden">placeholder</p>
+        </div>
+    </div>
+    <div id='game'>game 1</div>
+    <div id="testControl">
+        <button id="testControlBtn">regis</button>
+    </div>
+</body>
+<script src='./js/tempcontrol.js'></script>
+<script src="./js/regis.js"></script>
+
+</html>

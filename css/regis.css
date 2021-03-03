@@ -1,0 +1,41 @@
+#regis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.regis-container {
+    display: flex;
+    flex-direction: column;
+    align-items:center;   
+}
+
+.regis-form {
+    display: flex;
+    flex-direction: column;
+    align-items:center;   
+}
+
+
+.regis-title {
+    font-size:1.5em
+}
+
+.regis-submit {
+    margin-top:2em;
+    padding: 0.2em 0;
+    width:100%
+}
+
+#form-error {
+    color:tomato
+}
+.error-hidden {
+    visibility: hidden;
+}

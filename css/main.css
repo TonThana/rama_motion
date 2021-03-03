@@ -1,0 +1,32 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+}
+
+.open-sans {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.proza-libre {
+    font-family: 'Proza Libre', sans-serif;
+}
+
+.k2d {
+    font-family: 'K2D', sans-serif;
+}
+
+#testControl {
+    position: absolute;
+    top:0
+}
+
+.hidden {
+    position: absolute  !important;
+    overflow: hidden  !important;
+    width: 0  !important;
+    height: 0  !important;
+    display: none  !important;
+    pointer-events: none  !important;
+}
