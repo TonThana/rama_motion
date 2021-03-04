@@ -13,13 +13,14 @@ body {
     font-family: 'Proza Libre', sans-serif;
 }
 
-.k2d {
-    font-family: 'K2D', sans-serif;
+.sarabun {
+    font-family: 'Sarabun', sans-serif;
 }
 
 #testControl {
     position: absolute;
-    top:0
+    top:40%;
+    left: 40%;
 }
 
 .hidden {

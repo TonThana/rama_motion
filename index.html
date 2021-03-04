@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Proza+Libre&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=K2D:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@100;300&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" type="text/css" href="css/regis.css" />
@@ -19,7 +19,7 @@
 
 <body>
     <div id='regis'>
-        <div class='regis-container k2d'>
+        <div class='regis-container sarabun'>
             <p class="regis-title">ข้อมูล</p>
             <form class="regis-form">
                 <input name="name" class="regis-form1-fname" type="text" placeholder="ชื่อ นามสกุล" tabindex="1">
@@ -35,9 +35,10 @@
     </div>
     <div id='game' class='hidden'>
         <svg width='100%' height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-            <circle id="central-fix" fill="red" />
+            <circle id="central-fix"></circle>
+            <circle id="moving"></circle>
+            <circle id="rotation-center"></circle>
         </svg>
-
     </div>
     <div id="testControl">
         <button id="testControlBtn">switch</button>

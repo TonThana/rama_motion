@@ -7,8 +7,13 @@
     height: 100vh;
     overflow: hidden;
 }
-
+/* 
 #game > .circle {
+    border-radius: 50%;
+    transform-origin: 50% 50%;
+} */
+
+circle {
     border-radius: 50%;
     transform-origin: 50% 50%;
 }
