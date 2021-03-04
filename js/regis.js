@@ -3,6 +3,7 @@ const regis = () => {
     formEl.addEventListener('submit', formSubmit)
 }
 
+
 const formSubmit = (ev) => {
     let errorText = "hey!"
     const formErrorEl = document.getElementById("form-error")
@@ -19,6 +20,12 @@ const formSubmit = (ev) => {
         validateHN(ev.target.hn.value)
         return;
     }
+
+    if (ev.target.name.value) {
+        validateName(ev.target.name.value)
+        return;
+    }
+
     if (ev.target.name.value) {
         let stripped = ev.target.name.value.replace(/[\(\)\.\-\ ]/g, '')
         if (!stripped) {
@@ -34,11 +41,37 @@ const formSubmit = (ev) => {
 
 }
 
+function mystrip(str) {
+    return str.replace(/[^0-9a-z]/gi, '')
+} 
+
+const validateName = (name) => {
+    let splitted = name.split(" ")
+    let mergeName = mystrip(splitted[0]) + " " + mystrip(splitted[1])
+    console.log(mergeName)
+    console.log(splitted.length)
+    console.log(mergeName-parseInt(mergeName))
+    const formErrorEl = document.getElementById("form-error")
+    if (splitted.length != 2) {
+        formErrorEl.style.color = '#ff6347'
+        formErrorEl.innerHTML = "Please enter both of your name and surname"
+    } else if (!isNaN(mergeName-parseInt(mergeName))) {
+        formErrorEl.style.color = '#ff6347'
+        formErrorEl.innerHTML = "Name must not contain numbers"
+    } else {
+        formErrorEl.style.color = '#03c04a'
+        formErrorEl.innerHTML = "OK!"
+    }
+
+}
+
 
 const validateHN = (hn) => {
-    let stripped = hn.replace(/[\(\)\.\-\ ]/g, '')
+    let stripped = mystrip(hn)
+    console.log(stripped)
+    console.log(parseInt(stripped))
     const formErrorEl = document.getElementById("form-error")
-    if (isNaN(parseInt(stripped))) {
+    if (isNaN(stripped-parseInt(stripped))) {
         formErrorEl.style.color = '#ff6347'
         formErrorEl.innerHTML = "เลขรพ.ควรมีแค่ตัวเลข"
     } else if (stripped.length != 7) {
