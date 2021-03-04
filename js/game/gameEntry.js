@@ -1,5 +1,5 @@
 
-
+import gameBegin from './gameBegin'
 
 
 const main = () => {
@@ -11,16 +11,23 @@ const main = () => {
     // console.log("window.screen.availWidth", window.screen.availWidth)
     // console.log("window.innerWidth", window.innerWidth)
     // console.log("document.body.clientWidth", document.body.clientWidth)
+    const screenSize = getScreenSize()
 
+    // components
+    // 1) central black dot (fix pos)
+    // 2) rotating colored dot 
+    gameBegin(screenSize)
+}
+
+
+// preparation
+const getScreenSize = () => {
     const screensize = {
         width: window.innerWidth || document.body.clientWidth,
         height: window.innerHeight || document.body.clientHeight
     }
-
     // not allowed if under certain dim
-    console.log(screensize)
-
-
+    return screensize
 }
 
-main()
+export default main

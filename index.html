@@ -24,7 +24,7 @@
             <form class="regis-form">
                 <input name="name" class="regis-form1-fname" type="text" placeholder="ชื่อ นามสกุล" tabindex="1">
 
-                <p>และ/หรือ in ton branch</p>
+                <p>และ/หรือ</p>
 
                 <input name="hn" class="regis-form2-hn" type="text" placeholder="เลขรพ." tabindex="2">
                 <button type="submit" name="submit" id="submit" class="regis-submit" tabindex="3">เริ่ม</button>
@@ -33,7 +33,12 @@
         </div>
 
     </div>
-    <div id='game' class='hidden'>1</div>
+    <div id='game' class='hidden'>
+        <svg width='100%' height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <circle id="central-fix" fill="red" />
+        </svg>
+
+    </div>
     <div id="testControl">
         <button id="testControlBtn">switch</button>
 
@@ -41,6 +46,6 @@
 </body>
 <script src='./js/tempcontrol.js'></script>
 <script src="./js/regis.js"></script>
-<script src="./js/game/gameEntry.js"></script>
+<!-- <script src="./js/game/gameEntry.js"></script> -->
 
 </html>

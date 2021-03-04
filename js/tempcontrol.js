@@ -1,3 +1,6 @@
+
+import gameStart from './game/gameEntry'
+
 const controlBtn = document.getElementById("testControlBtn")
 const regisPage = document.getElementById("regis")
 const gamePage = document.getElementById("game")
@@ -9,6 +12,7 @@ controlBtn.addEventListener('click', () => {
         regisPage.classList.add('hidden')
         gamePage.classList.remove('hidden')
         // restart game
+        gameStart()
     } else {
         // show regis page 
         gamePage.classList.add('hidden')
