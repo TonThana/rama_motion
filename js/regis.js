@@ -8,8 +8,7 @@ const formSubmit = (ev) => {
     const formErrorEl = document.getElementById("form-error")
     ev.preventDefault()
     formErrorEl.classList.remove('error-hidden')
-    // console.log(ev.target.name.value)
-    // console.log(ev.target.hn.value)
+
     if (!ev.target.name.value && !ev.target.hn.value) {
         errorText = "โปรดเติมอย่างน้อย 1 ช่อง"
         formErrorEl.innerHTML = errorText
@@ -46,7 +45,6 @@ const validateHN = (hn) => {
         formErrorEl.style.color = '#ff6347'
         formErrorEl.innerHTML = "เลขรพ.มี 7 หลัก"
     } else {
-
         formErrorEl.innerHTML = "OK!"
         formErrorEl.style.color = '#03c04a'
     }

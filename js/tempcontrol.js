@@ -4,13 +4,16 @@ const gamePage = document.getElementById("game")
 
 let state = true
 controlBtn.addEventListener('click', () => {
-    console.log(state)
     if (state) {
+        // show game page
         regisPage.classList.add('hidden')
         gamePage.classList.remove('hidden')
+        // restart game
     } else {
+        // show regis page 
         gamePage.classList.add('hidden')
         regisPage.classList.remove('hidden')
+        // reset form
     }
     state = !state
 })
