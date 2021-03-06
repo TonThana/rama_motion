@@ -1,5 +1,5 @@
 
-import gameStart from './game/gameEntry'
+import { init, exit } from './game/gameBegin'
 
 const controlBtn = document.getElementById("testControlBtn")
 const regisPage = document.getElementById("regis")
@@ -12,8 +12,10 @@ controlBtn.addEventListener('click', () => {
         regisPage.classList.add('hidden')
         gamePage.classList.remove('hidden')
         // restart game
-        gameStart()
+        init()
     } else {
+        // clear game
+        exit()
         // show regis page 
         gamePage.classList.add('hidden')
         regisPage.classList.remove('hidden')
