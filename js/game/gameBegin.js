@@ -22,32 +22,17 @@ const init = (screenSize) => {
 
     genStaticCircleSvg()
 
-
-
-    // // test rotating pos
-    // const movingCircle = document.getElementById("moving")
-    // movingCircle.style.fill = 'black'
-    // let circleRadius = 2 // can be random
-    // let rotationRadius = 100 // can be random
-    // let swingTotalLength = (2 * circleRadius) + rotationRadius
-
-    // let minCenterX = swingTotalLength
-    // let maxCenterX = screenSize.width - swingTotalLength
-    // let minCenterY = swingTotalLength
-    // let maxCenterY = screenSize.height - swingTotalLength
-
-    // movingCircle.style.cx = minCenterX + Math.cos(Math.PI / 4) * rotationRadius
-    // movingCircle.style.cy = minCenterY + Math.sin(Math.PI / 4) * rotationRadius
-    // movingCircle.style.r = circleRadius
-    // movingCircle.style.transformOrigin = `${minCenterX}px ${minCenterY}px`
-
-    // anime({
-    //     targets: movingCircle,
-    //     duration: 1000,
-    //     loop: true,
-    //     rotate: [0, 360],
-    //     easing: "linear"
-    // })
+    const movingCircles = document.querySelectorAll(".moving")
+    movingCircles.forEach(el => {
+        anime({
+            targets: el,
+            duration: () => getRandomFloat(200, 3000),
+            loop: true,
+            autoplay: false,
+            easing: "linear",
+            rotate: [0, 360]
+        })
+    })
 
 }
 
@@ -71,7 +56,7 @@ const genCircleConfig = () => {
 }
 
 // const SIZES = [0, 1, 2]
-const NUMBER_OF_CIRCLES = 125 // 100 <circle></circle>
+const NUMBER_OF_CIRCLES = 200 // 100 <circle></circle>
 // sizes: 0 - small, 1 - middle, 2 - large
 const genStaticCircleSvg = () => {
     const parentSvg = document.getElementById("circle-parent")
@@ -81,10 +66,15 @@ const genStaticCircleSvg = () => {
         circle.setAttributeNS(null, 'cx', config.cx);
         circle.setAttributeNS(null, 'cy', config.cy);
         circle.setAttributeNS(null, 'r', config.r);
-        circle.setAttributeNS(null, 'style', 'fill: none; stroke: blue; stroke-width: 1px;');
+        circle.setAttributeNS(null, "class", "moving")
+        circle.setAttributeNS(null, "id", i)
+        circle.setAttributeNS(null, 'style', `fill: none; stroke: blue; stroke-width: 1px`);
+        circle.style.transformOrigin = `${config.xOrigin}px ${config.yOrigin}px`
         parentSvg.appendChild(circle)
     }
 }
+
+
 
 
 
