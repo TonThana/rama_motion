@@ -15,40 +15,40 @@ const formSubmit = (ev) => {
     formErrorEl.classList.remove('error-hidden')
     console.log('hey')
     if (!ev.target.name.value && !ev.target.hn.value) {
-        console.log('C1')
+        //console.log('C1')
         errorText = "โปรดเติมอย่างน้อย 1 ช่อง"
         formErrorEl.style.color = '#ff6347'
         formErrorEl.innerHTML = errorText
         return;
 
     } else if (ev.target.name.value && !ev.target.hn.value) {
-        console.log('C2')
+        //console.log('C2')
         validateName(ev.target.name.value)
         return;
 
     } else if (!ev.target.name.value && ev.target.hn.value) {
-        console.log('C3')
+        //console.log('C3')
         validateHN(ev.target.hn.value)
         return;
 
     } else {
-        console.log('C4')
+        //console.log('C4')
         if (validateName(ev.target.name.value) && validateHN(ev.target.hn.value)) {
-            console.log("case1")
+            //console.log("case1")
             validateName(ev.target.name.value)
             return;
         } else if (!validateName(ev.target.name.value) && validateHN(ev.target.hn.value)) {
-            console.log("case2")
+            //console.log("case2")
             validateName(ev.target.name.value)
             return;
         } else if (validateName(ev.target.name.value) && !validateHN(ev.target.hn.value)) {
-            console.log("case3")
+            //console.log("case3")
             validateHN(ev.target.hn.value)
             return;
         } else {
-            console.log("case4")
+            //console.log("case4")
             formErrorEl.style.color = '#ff6347'
-            formErrorEl.innerHTML = "Name and HN are incorrect"
+            formErrorEl.innerHTML = "Name and HN are incorrect form"
             return;
         }
         
