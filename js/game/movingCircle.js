@@ -55,21 +55,23 @@ export class MovingCircle {
         console.log("destroy!")
     }
 
-
+    onKeyDown(ev) {
+        ev.preventDefault()
+        console.log(ev.code)
+    }
 
     animate() {
         let direction = getRandomItem([1, -1])
+        window.addEventListener("keydown", this.onKeyDown)
         return new Promise(resolve => {
             this.animId = anime({
                 targets: this.circle,
                 duration: () => getRandomInt(200, 6000),
                 easing: "linear",
                 rotate: [0, 720 * direction],
-                autoplay: true,
+                autoplay: false,
                 loop: true,
                 loopBegin: () => {
-                    console.log("animate")
-                    this.animId.play()
                     this.show()
                 },
                 loopComplete: () => {
@@ -77,13 +79,13 @@ export class MovingCircle {
                     resolve()
                 }
             })
-
-
+            this.animId.play()
         })
 
     }
 
     stopAnimate() {
+        window.removeEventListener("keydown", this.onKeyDown)
         this.animId.pause()
         this.unshow()
     }

@@ -28,13 +28,23 @@ export const init = () => {
         circles.push(new MovingCircle(parentSvg, i, SCREEN_WIDTH, SCREEN_HEIGHT))
     }
 
-    window.addEventListener('keydown', onKeyPress)
+
+    console.log(
+        'wait 3 seconds'
+    )
+    setTimeout(() => {
+        startMotion()
+        // window.addEventListener('keydown', onKeyPress)
+    }, 3000)
+
+
+
 }
 
 export const exit = () => {
     circles.forEach(el => el.destroy())
     circles = []
-    window.removeEventListener('keydown', onKeyPress)
+    // window.removeEventListener('keydown', onKeyPress)
 }
 
 
@@ -49,29 +59,29 @@ const getScreenSize = () => {
 }
 
 
-// toggle spin logic here!
-let counter = 0
-const onKeyPress = (ev) => {
-    ev.preventDefault()
-    startMotion()
-    // if (counter < circles.length) {
-    //     if (counter > 0) {
-    //         circles[counter - 1].stopAnimate()
-    //     }
+// // toggle spin logic here!
+// let counter = 0
+// const onKeyPress = (ev) => {
+//     ev.preventDefault()
 
-    //     circles[counter].animate()
-    //     counter += 1
-    // }
-}
+//     // if (counter < circles.length) {
+//     //     if (counter > 0) {
+//     //         circles[counter - 1].stopAnimate()
+//     //     }
+
+//     //     circles[counter].animate()
+//     //     counter += 1
+//     // }
+// }
 
 
 const delayTimer = ms => new Promise(resolve => setTimeout(resolve, ms))
 async function startMotion() {
     for (let i = 0; i < circles.length; i += 1) {
-        console.log(i)
+        if (i === 0) console.log("START!")
         let waitTime = getRandomInt(300, 3000)
-        console.log(waitTime)
         await circles[i].animate()
+        console.log("waitTime: ", waitTime)
         await delayTimer(waitTime)
     }
 }
