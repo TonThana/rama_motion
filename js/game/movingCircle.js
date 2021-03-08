@@ -2,6 +2,7 @@ import anime from 'animejs'
 
 import getRandomInt from '../utils/getRandomInt'
 import getRandomFloat from '../utils/getRandomFloat'
+import getRandomItem from '../utils/getRandomItem'
 
 
 export class MovingCircle {
@@ -38,8 +39,9 @@ export class MovingCircle {
         // x and y Center of Rotation
         let xOrigin = getRandomFloat(minCenterX, maxCenterX)
         let yOrigin = getRandomFloat(minCenterY, maxCenterY)
-        let cx = xOrigin + rotationRadius
-        let cy = yOrigin + 0
+        let iAngle = 2 * Math.PI * Math.random()
+        let cx = xOrigin + rotationRadius * Math.cos(iAngle)
+        let cy = yOrigin + rotationRadius * Math.sin(iAngle)
         return { cx, cy, r, xOrigin, yOrigin }
     }
 
@@ -50,25 +52,48 @@ export class MovingCircle {
     destroy() {
         // remove dom
         this.circle.remove()
-        console.log("je")
+        console.log("destroy!")
     }
 
 
 
     animate() {
-        this.animId = anime({
-            targets: this.circle,
-            duration: () => getRandomInt(300, 3000),
-            easing: "linear",
-            rotate: [0, 360],
-            autoplay: false,
-            loop: true
+        let direction = getRandomItem([1, -1])
+        return new Promise(resolve => {
+            this.animId = anime({
+                targets: this.circle,
+                duration: () => getRandomInt(200, 6000),
+                easing: "linear",
+                rotate: [0, 720 * direction],
+                autoplay: true,
+                loop: true,
+                loopBegin: () => {
+                    console.log("animate")
+                    this.animId.play()
+                    this.show()
+                },
+                loopComplete: () => {
+                    this.stopAnimate()
+                    resolve()
+                }
+            })
+
+
         })
-        this.animId.play()
+
     }
 
     stopAnimate() {
         this.animId.pause()
+        this.unshow()
+    }
+
+    show() {
+        this.circle.classList.add("show")
+    }
+
+    unshow() {
+        this.circle.classList.remove("show")
     }
 
     // some type of counter

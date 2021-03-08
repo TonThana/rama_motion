@@ -1,4 +1,6 @@
 import anime from 'animejs'
+import 'regenerator-runtime/runtime'
+import getRandomInt from '../utils/getRandomInt'
 import { MovingCircle } from './movingCircle'
 
 let SCREEN_WIDTH, SCREEN_HEIGHT
@@ -26,8 +28,7 @@ export const init = () => {
         circles.push(new MovingCircle(parentSvg, i, SCREEN_WIDTH, SCREEN_HEIGHT))
     }
 
-    window.addEventListener('keydown', onKeyPress
-    )
+    window.addEventListener('keydown', onKeyPress)
 }
 
 export const exit = () => {
@@ -47,14 +48,30 @@ const getScreenSize = () => {
     return screensize
 }
 
+
+// toggle spin logic here!
 let counter = 0
 const onKeyPress = (ev) => {
     ev.preventDefault()
-    if (counter < circles.length) {
-        if (counter > 0) {
-            circles[counter - 1].stopAnimate()
-        }
-        circles[counter].animate()
-        counter += 1
+    startMotion()
+    // if (counter < circles.length) {
+    //     if (counter > 0) {
+    //         circles[counter - 1].stopAnimate()
+    //     }
+
+    //     circles[counter].animate()
+    //     counter += 1
+    // }
+}
+
+
+const delayTimer = ms => new Promise(resolve => setTimeout(resolve, ms))
+async function startMotion() {
+    for (let i = 0; i < circles.length; i += 1) {
+        console.log(i)
+        let waitTime = getRandomInt(300, 3000)
+        console.log(waitTime)
+        await circles[i].animate()
+        await delayTimer(waitTime)
     }
 }
