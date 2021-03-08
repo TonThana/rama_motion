@@ -3,9 +3,23 @@ import 'regenerator-runtime/runtime'
 import getRandomInt from '../utils/getRandomInt'
 import { MovingCircle } from './movingCircle'
 
+// some variables
 let SCREEN_WIDTH, SCREEN_HEIGHT
 let circles = []
+
+// show rules modal
+
+function showRuleModal() {
+    return new Promise((resolve, reject) => {
+
+        const rules = document.getElementById("rules")
+
+    })
+}
+
+
 export const init = () => {
+    showRuleModal()
     const screenSize = getScreenSize()
     SCREEN_WIDTH = screenSize.width
     SCREEN_HEIGHT = screenSize.height
@@ -13,6 +27,7 @@ export const init = () => {
     centralCircle.style.fill = 'black'
     centralCircle.style.cx = SCREEN_WIDTH / 2
     centralCircle.style.cy = SCREEN_HEIGHT / 2
+
     anime({
         targets: "#central-fix",
         opacity: [0, 1],
@@ -37,8 +52,6 @@ export const init = () => {
         // window.addEventListener('keydown', onKeyPress)
     }, 3000)
 
-
-
 }
 
 export const exit = () => {
@@ -59,22 +72,6 @@ const getScreenSize = () => {
 }
 
 
-// // toggle spin logic here!
-// let counter = 0
-// const onKeyPress = (ev) => {
-//     ev.preventDefault()
-
-//     // if (counter < circles.length) { 
-//     //     if (counter > 0) {
-//     //         circles[counter - 1].stopAnimate()
-//     //     }
-
-//     //     circles[counter].animate()
-//     //     counter += 1
-//     // }
-// }
-
-
 const delayTimer = ms => new Promise(resolve => setTimeout(resolve, ms))
 async function startMotion() {
     for (let i = 0; i < circles.length; i += 1) {
@@ -84,4 +81,5 @@ async function startMotion() {
         console.log("waitTime: ", waitTime)
         await delayTimer(waitTime)
     }
+    console.log("DONE")
 }

@@ -57,11 +57,11 @@ export class MovingCircle {
 
     onKeyDown = (ev) => {
         ev.preventDefault()
-        console.log(ev.code)
-        // collect stat
+        if (ev.code !== "Space") return;
+        // store stat
         console.log(this.animId.progress)
 
-        // seek the end to trigger complete resolve
+        // seek the end to trigger complete -> resolve
         this.animId.seek(this.animId.duration)
         this.stopAnimate()
     }
@@ -110,6 +110,5 @@ export class MovingCircle {
         this.circle.classList.remove("show")
     }
 
-    // some type of counter
 }
 
