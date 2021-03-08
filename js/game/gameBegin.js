@@ -64,7 +64,7 @@ const getScreenSize = () => {
 // const onKeyPress = (ev) => {
 //     ev.preventDefault()
 
-//     // if (counter < circles.length) {
+//     // if (counter < circles.length) { 
 //     //     if (counter > 0) {
 //     //         circles[counter - 1].stopAnimate()
 //     //     }
