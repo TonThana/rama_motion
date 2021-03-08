@@ -24,6 +24,8 @@ export class MovingCircle {
     }
 
     generateCircleConfig = () => {
+        // randomisation is current independent from one another
+
         let r = getRandomInt(2, 10)
         let rotationRadius = getRandomInt(2, 100)
         let swingTotalLength = (2 * r) + rotationRadius
