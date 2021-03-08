@@ -48,7 +48,10 @@ export class MovingCircle {
     destroy() {
         // remove dom
         this.circle.remove()
+        console.log("je")
     }
+
+
 
     animate() {
         this.animId = anime({
