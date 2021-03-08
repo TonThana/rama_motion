@@ -55,9 +55,15 @@ export class MovingCircle {
         console.log("destroy!")
     }
 
-    onKeyDown(ev) {
+    onKeyDown = (ev) => {
         ev.preventDefault()
         console.log(ev.code)
+        // collect stat
+        console.log(this.animId.progress)
+
+        // seek the end to trigger complete resolve
+        this.animId.seek(this.animId.duration)
+        this.stopAnimate()
     }
 
     animate() {
@@ -70,23 +76,29 @@ export class MovingCircle {
                 easing: "linear",
                 rotate: [0, 720 * direction],
                 autoplay: false,
-                loop: true,
-                loopBegin: () => {
+                loop: false,
+                begin: () => {
+                    console.log("BEGIN")
                     this.show()
                 },
-                loopComplete: () => {
+                // currently trigger twice
+                complete: () => {
+                    console.log("COMPLETE")
                     this.stopAnimate()
                     resolve()
-                }
+                },
+
             })
+
             this.animId.play()
         })
 
     }
 
     stopAnimate() {
+
         window.removeEventListener("keydown", this.onKeyDown)
-        this.animId.pause()
+        // this.animId.pause()
         this.unshow()
     }
 
