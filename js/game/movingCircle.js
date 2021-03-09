@@ -1,7 +1,6 @@
 import anime from 'animejs'
 
-import getRandomInt from '../utils/getRandomInt'
-import getRandomFloat from '../utils/getRandomFloat'
+
 import getRandomItem from '../utils/getRandomItem'
 import { SMALL, MEDIUM, LARGE } from './gameBegin'
 
@@ -34,9 +33,7 @@ export class MovingCircle {
     generateCircleConfig() {
         // fix position based on row col box width
         let r = this.type == SMALL ? 4 : this.type === MEDIUM ? 10 : 25
-        if (this.type === LARGE) {
 
-        }
         let rotationRadius = this.box_width / 2 - (2 * r)
         let xOrigin = this.col * this.box_width + this.box_width / 2
         let yOrigin = this.row * this.box_width + this.box_width / 2
