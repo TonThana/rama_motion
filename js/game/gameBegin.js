@@ -14,15 +14,13 @@ export const LARGE = "LARGE"
 
 function showRuleModal() {
     return new Promise((resolve, reject) => {
-
         const rules = document.getElementById("rules")
-
     })
 }
 
 
-export const init = () => {
-    // showRuleModal()
+export const init = (data) => {
+    const mode = data.testType
     const screenSize = getScreenSize()
     SCREEN_WIDTH = screenSize.width
     SCREEN_HEIGHT = screenSize.height
@@ -67,25 +65,65 @@ export const init = () => {
 
 
     // // small
-    for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
-        for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
-            circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL))
+    if (mode === 'blackwhite') {
+        // 1 test
+        for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
+                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "kw"))
+            }
+        }
+        // // medium
+        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, "kw"))
+            }
+        }
+        // large 1 for each quadrant - special case needed 
+        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "kw"))
+            }
+        }
+    } else if (mode === 'colored') {
+        // 2nd test
+        // small 1
+        for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
+                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "rg"))
+            }
+        }
+        // medium 1
+        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, "rg"))
+            }
+        }
+        // large 1 for each quadrant - special case needed 
+        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "rg"))
+            }
+        }
+        // small 2
+        for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
+                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "by"))
+            }
+        }
+        // medium 2
+        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, "by"))
+            }
+        }
+        // large 2 
+        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "by"))
+            }
         }
     }
 
-    // // medium
-    for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
-        for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
-            circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM))
-        }
-    }
-
-    // large 1 for each quadrant - special case needed 
-    for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
-        for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
-            circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE))
-        }
-    }
 
 
     console.log(
@@ -93,6 +131,7 @@ export const init = () => {
     )
     setTimeout(() => {
         startMotion()
+        // external key event - detect erroneous pressing
         // window.addEventListener('keydown', onKeyPress)
     }, 3000)
 

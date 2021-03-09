@@ -1,114 +1,143 @@
+import { letsGoToTheTests } from "./tempcontrol";
+
+const data = {}
 const regis = () => {
     const formEl = document.querySelector(".regis-form")
     formEl.addEventListener('submit', formSubmit)
 }
 
 
+
 function mystrip(str) {
     return str.replace(/[^0-9a-z]/gi, '')
-} 
+}
+
+function reportError(target, errorText) {
+    target.style.color = '#ff6347'
+    target.innerHTML = errorText
+}
+
+function okProceed(target) {
+    target.style.color = '#03c04a'
+    target.innerHTML = "OK!"
+    letsGoToTheTests(data)
+    return
+}
+
+function tempBypass() {
+    data.name = "test ton"
+    data.testType = "blackwhite"
+    data.eye = "both"
+    letsGoToTheTests(data)
+}
 
 const formSubmit = (ev) => {
+    ev.preventDefault()
+    tempBypass()
+    return;
     let errorText = "hey!"
     const formErrorEl = document.getElementById("form-error")
-    ev.preventDefault()
+
     formErrorEl.classList.remove('error-hidden')
-    console.log('hey')
-    if (!ev.target.name.value && !ev.target.hn.value) {
+
+
+    data.name = ev.target.name.value
+    data.hn = ev.target.hn.value
+    data.testType = document.getElementById("test").value
+    data.eye = document.getElementById("eye").value
+
+    if (data.testType === '' || data.eye === '') {
+        errorText = "โปรดเลือกประเภทการทดสอบให้ครบ"
+        reportError(formErrorEl, errorText)
+        return;
+    }
+
+    if (!data.name && !data.hn) {
         //console.log('C1')
-        errorText = "โปรดเติมอย่างน้อย 1 ช่อง"
-        formErrorEl.style.color = '#ff6347'
-        formErrorEl.innerHTML = errorText
+        errorText = "โปรดใส่ตัวตนอย่างน้อย 1 ช่อง"
+        reportError(formErrorEl, errorText)
         return;
 
-    } else if (ev.target.name.value && !ev.target.hn.value) {
+    } else if (data.name && !data.hn) {
         //console.log('C2')
-        validateName(ev.target.name.value)
+        validateName(data.name)
         return;
 
-    } else if (!ev.target.name.value && ev.target.hn.value) {
+    } else if (!data.name && data.hn) {
         //console.log('C3')
-        validateHN(ev.target.hn.value)
+        validateHN(data.hn)
         return;
 
     } else {
         //console.log('C4')
-        if (validateName(ev.target.name.value) && validateHN(ev.target.hn.value)) {
+        if (validateName(data.name) && validateHN(data.hn)) {
             //console.log("case1")
-            validateName(ev.target.name.value)
+            validateName(data.name)
             return;
-        } else if (!validateName(ev.target.name.value) && validateHN(ev.target.hn.value)) {
+        } else if (!validateName(data.name) && validateHN(data.hn)) {
             //console.log("case2")
-            validateName(ev.target.name.value)
+            validateName(data.name)
             return;
-        } else if (validateName(ev.target.name.value) && !validateHN(ev.target.hn.value)) {
+        } else if (validateName(data.name) && !validateHN(data.hn)) {
             //console.log("case3")
-            validateHN(ev.target.hn.value)
+            validateHN(data.hn)
             return;
         } else {
             //console.log("case4")
-            formErrorEl.style.color = '#ff6347'
-            formErrorEl.innerHTML = "Name and HN are incorrect form"
+            errorText = "ชื่อ นามสกุล หรือ HN ไม่ถูกต้อง"
+            reportError(formErrorEl, errorText)
             return;
         }
-        
     }
-
 }
 
-
 const validateName = (name) => {
+    let errorText = "hey!"
     let successState = false
     let splitted = name.split(" ")
     const formErrorEl = document.getElementById("form-error")
     formErrorEl.classList.remove('error-hidden')
     if (splitted.length != 2) {
-        formErrorEl.style.color = '#ff6347'
-        formErrorEl.innerHTML = "Please enter both of your name and surname"
+        errorText = "ใส่ทั้งชื่อและนามสกุล"
+        reportError(formErrorEl, errorText)
         return successState
     } else {
         if (mystrip(splitted[0]).length == 0 || mystrip(splitted[1]).length == 0) {
-            formErrorEl.style.color = '#ff6347'
-            formErrorEl.innerHTML = "Please enter both of your name and surname"
+            errorText = "ใส่ทั้งชื่อและนามสกุล"
+            reportError(formErrorEl, error)
             return successState
         } else {
             let mergeName = mystrip(splitted[0]) + " " + mystrip(splitted[1])
             if ((/\d/.test(mergeName))) {
-                formErrorEl.style.color = '#ff6347'
-                formErrorEl.innerHTML = "Name must not contain numbers"
+                errorText = "ชื่อไม่ควรมีตัวเลข"
+                reportError(formErrorEl, error)
                 return successState
             } else {
-                formErrorEl.style.color = '#03c04a'
-                formErrorEl.innerHTML = "OK!"
+                okProceed(formErrorEl)
                 return successState = true
             }
-        
         }
-
     }
-     
 }
-
 
 const validateHN = (hn) => {
     let successState = false
     let stripped = mystrip(hn)
+    let errorText
     const formErrorEl = document.getElementById("form-error")
     formErrorEl.classList.remove('error-hidden')
-    if (isNaN(stripped-parseInt(stripped))) {
-        formErrorEl.style.color = '#ff6347'
-        formErrorEl.innerHTML = "เลขรพ.ควรมีแค่ตัวเลข"
+    if (isNaN(stripped - parseInt(stripped))) {
+        errorText = "เลขรพ.ควรมีแค่ตัวเลข"
+        reportError(formErrorEl, errorText)
         return successState
     } else if (stripped.length != 7) {
-        formErrorEl.style.color = '#ff6347'
-        formErrorEl.innerHTML = "เลขรพ.มี 7 หลัก"
+        errorText = "เลขรพ.มี 7 หลัก"
+        reportError(formErrorEl, errorText)
         return successState
     } else {
-        formErrorEl.innerHTML = "OK!"
-        formErrorEl.style.color = '#03c04a'
+        okProceed(formErrorEl)
         return successState = true
     }
 }
-
 
 regis()

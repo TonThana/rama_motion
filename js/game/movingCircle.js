@@ -2,14 +2,16 @@ import anime from 'animejs'
 
 
 import getRandomItem from '../utils/getRandomItem'
+import shuffle from '../utils/shuffle'
 import { SMALL, MEDIUM, LARGE } from './gameBegin'
 
 export class MovingCircle {
     // represent 1 moving circle
-    constructor(parentSvg, col, row, box_width, type) {
-        this.type = type
+    constructor(parentSvg, col, row, box_width, size, colormode) {
+        this.colormode = colormode
+        this.size = size
         this.box_width = box_width
-        this.circleIndex = `${row}-${col}-${type}`
+        this.circleIndex = `${row}-${col}-${size}`
         this.col = col
         this.row = row
         this.parentSvg = parentSvg
@@ -21,7 +23,8 @@ export class MovingCircle {
         this.circle.setAttributeNS(null, 'r', this.config.r);
         this.circle.setAttributeNS(null, "class", "moving")
         this.circle.setAttributeNS(null, "id", this.circleIndex)
-        this.circle.setAttributeNS(null, 'style', `fill: none; stroke: #000; stroke-width: 1px`);
+        this.setColor()
+        // this.circle.setAttributeNS(null, 'style', `fill: none; stroke: #000; stroke-width: 1px`);
         this.circle.style.transformOrigin = `${this.config.xOrigin}px ${this.config.yOrigin}px`
         parentSvg.appendChild(this.circle)
 
@@ -29,10 +32,22 @@ export class MovingCircle {
         // this.show()
         // this.animate()
     }
+    setColor = () => {
+        // console.log(this.colormode)
+        if (this.colormode === "kw") {
+            this.circle.setAttributeNS(null, 'style', `fill: none; stroke: #000; stroke-width: 1px`);
+            this.colorComb = ["none", "none"]
+        } else {
+            // set later - need animate
+            this.circle.setAttributeNS(null, 'style', `stroke: none; stroke-width: 0px`);
+            this.colormode === "rg" ? this.colorComb = ["#FF0000", "#00FF00"] : this.colorComb = ["#FFFF00", "#0000FF"]
+        }
+        // console.log(this.colorComb)
+    }
 
     generateCircleConfig() {
         // fix position based on row col box width
-        let r = this.type == SMALL ? 4 : this.type === MEDIUM ? 10 : 25
+        let r = this.size == SMALL ? 4 : this.size === MEDIUM ? 10 : 25
 
         let rotationRadius = this.box_width / 2 - (2 * r)
         let xOrigin = this.col * this.box_width + this.box_width / 2
@@ -67,8 +82,10 @@ export class MovingCircle {
         this.stopAnimate()
     }
 
-    animate() {
+    animate = () => {
         let direction = getRandomItem([1, -1])
+
+        // console.log(this.colorComb)
         window.addEventListener("keydown", this.onKeyDown)
         return new Promise(resolve => {
             this.animId = anime({
@@ -77,7 +94,7 @@ export class MovingCircle {
                 easing: "linear",
                 rotate: [0, 720 * direction],
                 autoplay: false,
-
+                fill: shuffle([this.colorComb[0], this.colorComb[1]]),
                 loop: false,
                 begin: () => {
                     console.log("BEGIN")

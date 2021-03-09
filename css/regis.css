@@ -22,6 +22,9 @@
     align-items:center;   
 }
 
+select {
+    width:100%
+}
 
 .regis-title {
     font-size:1.5em
