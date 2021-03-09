@@ -2,6 +2,7 @@ import anime from 'animejs'
 import 'regenerator-runtime/runtime'
 import getRandomInt from '../utils/getRandomInt'
 import { MovingCircle } from './movingCircle'
+import shuffle from '../utils/shuffle'
 
 // some variables
 let SCREEN_WIDTH, SCREEN_HEIGHT
@@ -86,15 +87,14 @@ export const init = () => {
         }
     }
 
-    // for (let row = 0; row < )
 
-    // console.log(
-    //     'wait 3 seconds'
-    // )
-    // setTimeout(() => {
-    //     startMotion()
-    //     // window.addEventListener('keydown', onKeyPress)
-    // }, 3000)
+    console.log(
+        'wait 3 seconds'
+    )
+    setTimeout(() => {
+        startMotion()
+        // window.addEventListener('keydown', onKeyPress)
+    }, 3000)
 
     // position center of animation plane
     const centralCircle = document.getElementById("central-fix")
@@ -132,12 +132,15 @@ const getScreenSize = () => {
 
 const delayTimer = ms => new Promise(resolve => setTimeout(resolve, ms))
 async function startMotion() {
-    for (let i = 0; i < circles.length; i += 1) {
+    const shuffled = shuffle(circles)
+    for (let i = 0; i < shuffled.length; i += 1) {
         if (i === 0) console.log("START!")
         let waitTime = getRandomInt(300, 3000)
-        await circles[i].animate()
+        await shuffled[i].animate()
         console.log("waitTime: ", waitTime)
         await delayTimer(waitTime)
     }
     console.log("DONE")
 }
+
+

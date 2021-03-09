@@ -27,8 +27,8 @@ export class MovingCircle {
         parentSvg.appendChild(this.circle)
 
         // show all temp 
-        this.show()
-        this.animate()
+        // this.show()
+        // this.animate()
     }
 
     generateCircleConfig() {
@@ -76,20 +76,20 @@ export class MovingCircle {
         return new Promise(resolve => {
             this.animId = anime({
                 targets: this.circle,
-                duration: () => 3000,
+                duration: () => 750,
                 easing: "linear",
                 rotate: [0, 720 * direction],
                 autoplay: false,
-                loop: true,
-                // loop: false,
+
+                loop: false,
                 begin: () => {
                     console.log("BEGIN")
-                    // this.show()
+                    this.show()
                 },
                 // currently trigger twice
                 complete: () => {
                     console.log("COMPLETE")
-                    // this.stopAnimate()
+                    this.stopAnimate()
                     resolve()
                 },
 
