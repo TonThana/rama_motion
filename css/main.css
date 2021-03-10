@@ -17,6 +17,10 @@ body {
     font-family: 'Sarabun', sans-serif;
 }
 
+.playfair {
+    font-family: 'Playfair Display', serif;
+}
+
 #testControl {
     position: absolute;
     top:40%;

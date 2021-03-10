@@ -158,12 +158,11 @@ export const exit = () => {
 
 
 // preparation
-const getScreenSize = () => {
+export const getScreenSize = () => {
     const screensize = {
         width: window.innerWidth || document.body.clientWidth,
         height: window.innerHeight || document.body.clientHeight
     }
-    console.log(screensize)
     // not allowed if under certain dim
     return screensize
 }
