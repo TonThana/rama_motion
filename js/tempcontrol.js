@@ -33,8 +33,6 @@ export function letsGoToTheTests(data) {
         // show game page
         regisPage.classList.add('hidden')
         // stop animation
-
-
         gamePage.classList.remove('hidden')
         // restart game
         init(data)
