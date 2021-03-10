@@ -45,7 +45,7 @@ export const init = (data) => {
 
     // must 6 shorter dim (row)
     const NUMBER_OF_ROWS = 8
-    const NUMBER_OF_COLS = 16
+    const NUMBER_OF_COLS = 12
     const oneBoxOnShorterDim = shorterDim / NUMBER_OF_ROWS
     const oneBoxOnLongerDim = longerDim / NUMBER_OF_COLS
     // let width be smaller value of the two
@@ -72,13 +72,13 @@ export const init = (data) => {
                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "kw"))
             }
         }
-        // // medium
+        // // // medium
         for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
             for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, "kw"))
             }
         }
-        // large 1 for each quadrant - special case needed 
+        // // large 1 for each quadrant - special case needed 
         for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
             for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "kw"))

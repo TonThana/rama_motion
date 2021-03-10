@@ -49,6 +49,7 @@ export class MovingCircle {
         // fix position based on row col box width
         let r = this.size == SMALL ? 4 : this.size === MEDIUM ? 10 : 25
 
+
         let rotationRadius = this.box_width / 2 - (2 * r)
         let xOrigin = this.col * this.box_width + this.box_width / 2
         let yOrigin = this.row * this.box_width + this.box_width / 2
@@ -102,7 +103,7 @@ export class MovingCircle {
                 },
                 // currently trigger twice
                 complete: () => {
-                    console.log("COMPLETE")
+                    // console.log("COMPLETE")
                     this.stopAnimate()
                     resolve()
                 },
