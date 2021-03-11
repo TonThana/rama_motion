@@ -12,14 +12,8 @@ export const MEDIUM = "MEDIUM"
 export const LARGE = "LARGE"
 // show rules modal
 
-function showRuleModal() {
-    return new Promise((resolve, reject) => {
-        const rules = document.getElementById("rules")
-    })
-}
 
-
-export const init = (data) => {
+export const game_init = (data) => {
     const mode = data.testType
     const screenSize = getScreenSize()
     SCREEN_WIDTH = screenSize.width
@@ -151,7 +145,7 @@ export const init = (data) => {
 
 }
 
-export const exit = () => {
+export const game_exit = () => {
     circles.forEach(el => el.destroy())
     circles = []
 }

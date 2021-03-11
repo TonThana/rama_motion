@@ -13,13 +13,13 @@ export default class RegisLandingArt {
         this.circle.setAttributeNS(null, 'opacity', '0.5');
         this.screensize = getScreenSize()
         this.coords = []
-        this.animate()
+        // this.animate()
     }
 
     generateMovementCoordinates = () => {
         return {
-            x: getRandomFloat(0, this.screensize.width - 20),
-            y: getRandomFloat(0, this.screensize.height - 20),
+            x: getRandomFloat(40, this.screensize.width - 40),
+            y: getRandomFloat(40, this.screensize.height - 40),
         }
     }
 
@@ -29,7 +29,7 @@ export default class RegisLandingArt {
         const tl = anime.timeline({ loop: false, targets: this.circle })
         for (let i = 0; i < MOVEMENT_COORDS_COUNT; i += 1) {
             let { x, y } = this.generateMovementCoordinates()
-            console.log(x, y)
+            // console.log(x, y)
             tl.add({
                 cx: x,
                 cy: y,
@@ -45,6 +45,10 @@ export default class RegisLandingArt {
         }
         tl.complete = () => this.animate()
 
+    }
+
+    stopAnimate = () => {
+        anime.remove(this.circle)
     }
 
 }

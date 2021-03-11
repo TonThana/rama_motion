@@ -1,7 +1,9 @@
-import { letsGoToTheTests } from "./tempcontrol";
+import { letsGoToTheTests } from "./control";
+import { Control } from './control'
+
 
 const data = {}
-const regis = () => {
+export const regis = () => {
     const formEl = document.querySelector(".regis-form")
     formEl.addEventListener('submit', formSubmit)
 }
@@ -20,6 +22,7 @@ function reportError(target, errorText) {
 function okProceed(target) {
     target.style.color = '#03c04a'
     target.innerHTML = "OK!"
+
     letsGoToTheTests(data)
     return
 }
@@ -28,7 +31,7 @@ function tempBypass() {
     data.name = "test ton"
     data.testType = "colored"
     data.eye = "both"
-    letsGoToTheTests(data)
+    new Control().show("rule", data)
 }
 
 const formSubmit = (ev) => {
