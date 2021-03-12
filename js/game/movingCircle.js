@@ -31,7 +31,28 @@ export class MovingCircle {
         // show all temp 
         // this.show()
         // this.animate()
+
+        // temp center
+        // this.centercircle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+        // this.centercircle.setAttributeNS(null, 'cx', this.config.xOrigin);
+        // this.centercircle.setAttributeNS(null, 'cy', this.config.yOrigin);
+        // this.centercircle.setAttributeNS(null, 'fill', 'black');
+        // this.centercircle.setAttributeNS(null, 'r', "10");
+        // this.centercircle.style.transformOrigin = `${this.config.xOrigin}px ${this.config.yOrigin}px`
+        // parentSvg.appendChild(this.centercircle)
     }
+
+    collectData = () => {
+        return {
+            correctReaction: this.correctReaction || 101,
+            ectopicReaction: this.ectopicReaction || 101,
+            colorMode: this.colormode,
+            size: this.size,
+            col: this.col,
+            row: this.row,
+        }
+    }
+
     setColor = () => {
         // console.log(this.colormode)
         if (this.colormode === "kw") {
@@ -76,9 +97,9 @@ export class MovingCircle {
         ev.preventDefault()
         if (ev.code !== "Space") return;
         // store stat
-        console.log(this.animId.progress)
+        console.log(this.animId.progress, "correct")
         // save the time
-
+        this.correctReaction = Number(this.animId.progress)
         // seek the end to trigger complete -> resolve
         this.animId.seek(this.animId.duration)
         this.stopAnimate()
@@ -87,7 +108,8 @@ export class MovingCircle {
     onKeyDownEctopic = (ev) => {
         ev.preventDefault()
         if (ev.code !== "Space") return;
-        console.log(this.animIdEctopic.progress, "ECTOPIC")
+        console.log(this.animIdEctopic.progress, "ectopic")
+        this.ectopicReaction = Number(this.animIdEctopic.progress)
         // save the time
     }
 
@@ -146,11 +168,11 @@ export class MovingCircle {
                 autoplay: false,
                 loop: false,
                 begin: () => {
-                    console.log("WAIT BEGIN")
+                    console.log("wait begin")
                 },
                 // currently trigger twice
                 complete: () => {
-                    console.log("WAIT COMPLETE")
+                    console.log("wait complete")
                     window.removeEventListener("keydown", this.onKeyDownEctopic)
                     resolve()
                 },

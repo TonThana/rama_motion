@@ -72,7 +72,7 @@ export const game_init = (data) => {
                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, "kw"))
             }
         }
-        // // large 1 for each quadrant - special case needed 
+        // // // large 1 for each quadrant - special case needed 
         for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
             for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "kw"))
@@ -162,10 +162,9 @@ export const getScreenSize = () => {
 }
 
 
-const delayTimer = ms => new Promise(resolve => setTimeout(resolve, ms))
+// const delayTimer = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 async function startMotion() {
-    let ectopic = []
     const shuffled = shuffle(circles)
     for (let i = 0; i < shuffled.length; i += 1) {
         if (i === 0) console.log("START!")
@@ -176,7 +175,16 @@ async function startMotion() {
         // 0 -> waitTime
         await shuffled[i].postAnimate(waitTime)
     }
-    console.log("DONE")
+    console.log("collecting data")
+    let endData = []
+    for (let i = 0; i < shuffled.length; i += 1) {
+        let endResult = shuffled[i].collectData()
+        endResult['index'] = i
+        endData.push(endResult)
+    }
+    console.log(endData)
+    // -> result page
+
 }
 
 

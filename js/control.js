@@ -4,40 +4,10 @@ import { regis } from './regis'
 import { ruleEntry } from './rule'
 
 
-
-let state = true
-
-
 const regisLandingArt = new RegisLandingArt()
 
 // regis -> rules
 // rules -> regis
-
-
-
-// rules -> game -> regis
-// export function letsGoToTheTests(data) {
-//     console.log(data)
-//     if (state) {
-//         // show game page
-//         regisPage.classList.add('hidden')
-//         // stop animation
-//         gamePage.classList.remove('hidden')
-//         // restart game
-//         game_init(data)
-//     } else {
-//         // clear game
-//         game_exit()
-//         // show regis page - animate regis page
-//         gamePage.classList.add('hidden')
-//         regisPage.classList.remove('hidden')
-//         // reset form
-//     }
-//     state = !state
-// }
-
-
-
 
 export class Control {
     constructor() {
