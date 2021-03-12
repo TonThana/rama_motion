@@ -2,7 +2,8 @@ import { game_init, game_exit } from './game/gameBegin'
 import RegisLandingArt from './regisArt'
 import { regis } from './regis'
 import { ruleEntry } from './rule'
-
+import { resultEntry } from './result'
+import { result } from './example_result/example_result'
 
 const regisLandingArt = new RegisLandingArt()
 
@@ -14,20 +15,24 @@ export class Control {
         this.regisPage = document.getElementById("regis")
         this.gamePage = document.getElementById("game")
         this.rulePage = document.getElementById("rule")
+        this.resultPage = document.getElementById('result')
         this.pages = {
             "regis": this.regisPage,
             "game": this.gamePage,
-            "rule": this.rulePage
+            "rule": this.rulePage,
+            "result": this.resultPage
         }
         this.pagesEntryFn = {
             "regis": [regis, regisLandingArt.animate],
             "game": [game_init],
-            "rule": [ruleEntry]
+            "rule": [ruleEntry],
+            "result": [resultEntry]
         },
             this.pagesExitFn = {
                 "game": [game_exit],
                 "regis": [regisLandingArt.stopAnimate],
-                "rule": [() => console.log('rule exit')]
+                "rule": [() => console.log('rule exit')],
+                "result": [() => console.log('result exit')]
             }
     }
 
@@ -56,7 +61,9 @@ export class Control {
 window.onload = function () {
     // initial
     const control = new Control()
-    control.show("regis")
+    // control.show("regis")
     // regis()
+    // temp bypass to result
+    control.show("result", result)
 }
 

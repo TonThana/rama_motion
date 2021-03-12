@@ -1,7 +1,7 @@
 // example only 
 
 
-const result = [
+export const result = [
     {
         "correctReaction": 16.700533333331503,
         "ectopicReaction": 101,
