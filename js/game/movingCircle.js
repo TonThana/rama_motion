@@ -77,10 +77,18 @@ export class MovingCircle {
         if (ev.code !== "Space") return;
         // store stat
         console.log(this.animId.progress)
+        // save the time
 
         // seek the end to trigger complete -> resolve
         this.animId.seek(this.animId.duration)
         this.stopAnimate()
+    }
+
+    onKeyDownEctopic = (ev) => {
+        ev.preventDefault()
+        if (ev.code !== "Space") return;
+        console.log(this.animIdEctopic.progress, "ECTOPIC")
+        // save the time
     }
 
     animate = () => {
@@ -128,6 +136,28 @@ export class MovingCircle {
 
     unshow() {
         this.circle.classList.remove("show")
+    }
+
+    postAnimate(waitTime) {
+        window.addEventListener("keydown", this.onKeyDownEctopic)
+        return new Promise(resolve => {
+            this.animIdEctopic = anime({
+                duration: waitTime,
+                autoplay: false,
+                loop: false,
+                begin: () => {
+                    console.log("WAIT BEGIN")
+                },
+                // currently trigger twice
+                complete: () => {
+                    console.log("WAIT COMPLETE")
+                    window.removeEventListener("keydown", this.onKeyDownEctopic)
+                    resolve()
+                },
+            })
+
+            this.animIdEctopic.play()
+        })
     }
 
 }

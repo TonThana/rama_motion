@@ -29,7 +29,7 @@ function okProceed(target) {
 
 function tempBypass() {
     data.name = "test ton"
-    data.testType = "colored"
+    data.testType = "blackwhite"
     data.eye = "both"
     new Control().show("rule", data)
 }

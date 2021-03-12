@@ -34,11 +34,13 @@ export default class RegisLandingArt {
                 cx: x,
                 cy: y,
                 duration: 3000,
+                r: [5, 30, 5],
                 easing: "easeOutSine",
                 fill: shuffle(["#ff0000", "#000fff", "#ffa500 ", "#00ff00"]),
                 complete: () => this.circle.style.transformOrigin = `${x - 20}px ${y}px`
             }).add({
                 rotate: [0, 360],
+                r: [5, Math.random() * 10, 5],
                 duration: 1000,
                 easing: "linear"
             })

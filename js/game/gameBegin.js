@@ -163,14 +163,18 @@ export const getScreenSize = () => {
 
 
 const delayTimer = ms => new Promise(resolve => setTimeout(resolve, ms))
+
 async function startMotion() {
+    let ectopic = []
     const shuffled = shuffle(circles)
     for (let i = 0; i < shuffled.length; i += 1) {
         if (i === 0) console.log("START!")
-        let waitTime = getRandomInt(300, 3000)
+        // lengthen duration actual
+        let waitTime = getRandomInt(100, 200)
         await shuffled[i].animate()
         console.log("waitTime: ", waitTime)
-        await delayTimer(waitTime)
+        // 0 -> waitTime
+        await shuffled[i].postAnimate(waitTime)
     }
     console.log("DONE")
 }
