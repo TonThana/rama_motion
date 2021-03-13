@@ -8,8 +8,8 @@ import shuffle from '../utils/shuffle'
 let SCREEN_WIDTH, SCREEN_HEIGHT
 let circles = []
 export const SMALL = "small"
-export const MEDIUM = "MEDIUM"
-export const LARGE = "LARGE"
+export const MEDIUM = "medium"
+export const LARGE = "large"
 // show rules modal
 
 
@@ -60,7 +60,7 @@ export const game_init = (data) => {
 
     // // small
     if (mode === 'blackwhite') {
-        // 1 test
+        // // // small
         for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
             for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "kw"))
@@ -73,8 +73,8 @@ export const game_init = (data) => {
             }
         }
         // // // large 1 for each quadrant - special case needed 
-        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+        for (let col = 0; col < NUMBER_OF_COLS / 4; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 4; row += 1) {
                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "kw"))
             }
         }
@@ -93,8 +93,8 @@ export const game_init = (data) => {
             }
         }
         // large 1 for each quadrant - special case needed 
-        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+        for (let col = 0; col < NUMBER_OF_COLS / 4; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 4; row += 1) {
                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "rg"))
             }
         }
@@ -111,8 +111,8 @@ export const game_init = (data) => {
             }
         }
         // large 2 
-        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+        for (let col = 0; col < NUMBER_OF_COLS / 4; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 4; row += 1) {
                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "by"))
             }
         }
@@ -183,7 +183,7 @@ async function startMotion() {
         endData.push(endResult)
     }
     console.log(endData)
-    // -> result page
+    // TODO: -> result page
 
 }
 
