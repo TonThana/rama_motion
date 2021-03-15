@@ -98,10 +98,13 @@
         </div>
     </div>
     <div id='result' class="hidden">
-        <div>
-
+        <div id="result-info">
+            <div id="demographic"></div>
+            <div id="test-type"></div>
+            <div id="date-time"></div>
+            <div id="game-params"></div>
         </div>
-        <table id='result-table' style="width:100%" class="sarabun">
+        <table id='result-table' style="width:100%" class="open-sans">
             <tr id='result-heading'>
                 <th>Result</th>
                 <th>Graphical Representation</th>
@@ -110,26 +113,21 @@
             <tr id="blackwhite" class="off">
                 <td>Black/White</td>
                 <td><object data="./svgs/visual_result.svg" type="image/svg+xml" id="result-svg-object"></object></td>
-                <td>numerical summary</td>
+                <td id="blackwhite-numerical">numerical summary</td>
             </tr>
             <tr id="blueyellow" class="off">
                 <td>Blue/Yellow</td>
                 <td><object data="./svgs/visual_result.svg" type="image/svg+xml" id="result-svg-object-by"></object>
                 </td>
-                <td>numerical summary</td>
+                <td id="blueyellow-numerical">numerical summary</td>
             </tr>
             <tr id="redgreen" class="off">
                 <td>Red/Green</td>
                 <td><object data="./svgs/visual_result.svg" type="image/svg+xml" id="result-svg-object-rg"></object>
                 </td>
-                <td>numerical summary</td>
+                <td id="redgreen-numerical">numerical summary</td>
             </tr>
         </table>
-        <!-- <div class="playfair sarabun">
-            summary
-        </div>
-        <object data='./svgs/visual_result.svg' type="image/svg+xml" id='result-svg-object'></object>
-        <object data='./svgs/visual_result.svg' type="image/svg+xml" id='result-svg-object-2'></object> -->
 
     </div>
     <div id="my_mm" style="height:100mm;visibility:none"></div>

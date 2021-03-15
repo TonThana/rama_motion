@@ -1,5 +1,5 @@
 import { Control } from './control'
-
+import { mean, standardDeviation } from 'simple-statistics'
 
 // In this case we can't access the SVG element directly as it's hidden inside the <object> element. So first, we have to get the object and then access its contentDocument. Once we have the SVG document, we can continue as before.
 export const resultEntry = (result) => {
@@ -24,6 +24,7 @@ export const resultEntry = (result) => {
             return resItem.colorMode === "rg"
         });
         // append another table
+        // blue-yellow
         const resultObjBy = document.getElementById("result-svg-object-by")
         document.getElementById("blueyellow").classList.remove("off")
         resultObjBy.addEventListener('load', () => {
@@ -31,7 +32,14 @@ export const resultEntry = (result) => {
             renderResult(svgDoc, blueyellow)
 
         })
+        const numericalBy = document.getElementById("blueyellow-numerical")
+        let numericalResult = numericalSummary(blueyellow)
 
+        numericalBy.innerHTML = numericalResult
+
+
+
+        // red-green
         document.getElementById("redgreen").classList.remove("off")
         const resultObjRg = document.getElementById("result-svg-object-rg")
         resultObjRg.addEventListener('load', () => {
@@ -40,7 +48,10 @@ export const resultEntry = (result) => {
             renderResult(svgDoc, redgreen)
 
         })
+        const numericalRg = document.getElementById("redgreen-numerical")
+        numericalResult = numericalSummary(redgreen)
 
+        numericalRg.innerHTML = numericalResult
 
     }
 
@@ -113,7 +124,66 @@ const renderResult = (svgDoc, result) => {
             ectopicReactionTime.setAttributeNS(null, 'stroke-dashoffset', x * -1)
             ectopicReactionTime.style.transformOrigin = `${cx}px ${cy}px`
             ectopicReactionTime.style.transform = "rotate(-90deg)"
-            // console.log(ectopicReactionTime, resItem.ectopicReaction)
+
         }
     })
+}
+
+
+const numericalSummary = (result) => {
+    const total = result.length
+
+
+    let pureCorrect = result.filter((res) => {
+        return res.correctReaction !== 101 && res.ectopicReaction === 101
+    })
+    let pureCorrectTime = []
+    pureCorrect.forEach(p => pureCorrectTime.push(p.correctReaction))
+
+    let pureCorrectSmall = pureCorrect.filter((res) => {
+        return res.size === 'small'
+    })
+    let pureCorrectMedium = pureCorrect.filter((res) => {
+        return res.size === 'medium'
+    })
+    let pureCorrectLarge = pureCorrect.filter((res) => {
+        return res.size === 'large'
+    })
+    let pureCorrectSmallTime = []
+    pureCorrectSmall.forEach(p => pureCorrectSmallTime.push(p.correctReaction))
+
+    let pureCorrectMediumTime = []
+    pureCorrectMedium.forEach(p => pureCorrectMediumTime.push(p.correctReaction))
+
+    let pureCorrectLargeTime = []
+    pureCorrectLarge.forEach(p => pureCorrectLargeTime.push(p.correctReaction))
+
+    const numericalResult = {
+        total: total,
+        pureCorrectCount: pureCorrectTime.length,
+        pureCorrectMean: mean(pureCorrectTime),
+        pureCorrectSd: standardDeviation(pureCorrectTime),
+        // small
+        pureCorrectSmallCount: pureCorrectSmallTime.length,
+        pureCorrectSmallMean: mean(pureCorrectSmallTime),
+        pureCorrectSmallSd: standardDeviation(pureCorrectSmallTime),
+        // medium
+        pureCorrectMediumCount: pureCorrectMediumTime.length,
+        pureCorrectMediumMean: mean(pureCorrectMediumTime),
+        pureCorrectMediumSd: standardDeviation(pureCorrectMediumTime),
+        // large
+        pureCorrectLargeCount: pureCorrectLargeTime.length,
+        pureCorrectLargeMean: mean(pureCorrectLargeTime),
+        pureCorrectLargeSd: standardDeviation(pureCorrectLargeTime)
+    }
+    return `<div class='numerical'>
+        <div>correct count: ${numericalResult.pureCorrectCount}/${numericalResult.total}</div>
+        <div>correct mean: ${numericalResult.pureCorrectMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectSd).toFixed(2)}%</div>
+        <div>small correct count: ${numericalResult.pureCorrectSmallCount}/96</div>
+        <div>small correct mean: ${numericalResult.pureCorrectSmallMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectSmallSd).toFixed(2)}%</div>
+        <div>medium correct count: ${numericalResult.pureCorrectMediumCount}/24</div>
+        <div>medium correct mean: ${numericalResult.pureCorrectMediumMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectMediumSd).toFixed(2)}%</div>
+        <div>large correct count: ${numericalResult.pureCorrectLargeCount}/6</div>
+        <div>large correct mean: ${numericalResult.pureCorrectLargeMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectLargeSd).toFixed(2)}%</div>
+        </div>`
 }

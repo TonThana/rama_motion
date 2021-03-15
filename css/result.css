@@ -31,3 +31,8 @@
 #result-heading>* {
     font-weight: normal;
 }
+
+.numerical {
+    
+    text-align: left;
+}
