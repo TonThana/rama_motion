@@ -3,6 +3,7 @@ import { Control } from './control'
 import { getScreenSize } from './game/gameBegin'
 
 export const ruleEntry = (data) => {
+    console.log(data)
     // repeat logic as gameBegin 
     const screenSize = getScreenSize()
     let SCREEN_WIDTH = screenSize.width
@@ -54,15 +55,14 @@ export const ruleEntry = (data) => {
     // add btn event
     document.getElementById("rule-button-regis").addEventListener('click', (ev) => {
         ev.preventDefault()
-        control.show('regis', null)
+        ev.stopPropagation()
+        control.show('regis', [null])
     })
     document.getElementById("rule-button-game").addEventListener('click', ev => {
         ev.preventDefault()
-        control.show('game', data)
+        ev.stopPropagation()
+        control.show('game', [data])
     })
-
-
-
 }
 
 

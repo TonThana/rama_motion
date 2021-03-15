@@ -3,6 +3,7 @@ import 'regenerator-runtime/runtime'
 import getRandomInt from '../utils/getRandomInt'
 import { MovingCircle } from './movingCircle'
 import shuffle from '../utils/shuffle'
+import { Control } from '../control'
 
 // some variables
 let SCREEN_WIDTH, SCREEN_HEIGHT
@@ -11,9 +12,10 @@ export const SMALL = "small"
 export const MEDIUM = "medium"
 export const LARGE = "large"
 // show rules modal
-
+let info = null
 
 export const game_init = (data) => {
+    info = data
     const mode = data.testType
     const screenSize = getScreenSize()
     SCREEN_WIDTH = screenSize.width
@@ -184,7 +186,7 @@ async function startMotion() {
     }
     console.log(endData)
     // TODO: -> result page
-
+    new Control().show('result', [endData, info])
 }
 
 

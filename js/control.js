@@ -13,6 +13,7 @@ const regisLandingArt = new RegisLandingArt()
 
 export class Control {
     constructor() {
+        console.log("CONTROL")
         this.regisPage = document.getElementById("regis")
         this.gamePage = document.getElementById("game")
         this.rulePage = document.getElementById("rule")
@@ -40,7 +41,7 @@ export class Control {
 
 
 
-    show(page, data = null) {
+    show(page, data = [null]) {
         Object.keys(this.pages).forEach(p => {
             // console.log(p)
             if (p !== page) {
@@ -48,11 +49,11 @@ export class Control {
                 // previously shown (not hidden) page
                 if (!this.pages[p].classList.contains("hidden")) {
                     this.pages[p].classList.add('hidden')
-                    this.pagesExitFn[p].forEach(f => f.call(this))
+                    this.pagesExitFn[p].forEach(f => f.apply(this))
                 }
             } else {
                 this.pages[p].classList.remove('hidden')
-                this.pagesEntryFn[p].forEach(f => f.call(this, data))
+                this.pagesEntryFn[p].forEach(f => f.apply(this, data))
             }
         })
 
@@ -65,6 +66,12 @@ window.onload = function () {
     control.show("regis")
     // regis()
     // temp bypass to result
-    control.show("result", result_colored)
+    // let testdata = {
+    //     name: "test ton",
+    //     testType: "colored",
+    //     eye: "both",
+    //     hn: "4567891"
+    // }
+    // control.show("result", [result_colored, testdata])
 }
 

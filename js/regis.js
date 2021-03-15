@@ -1,4 +1,3 @@
-import { letsGoToTheTests } from "./control";
 import { Control } from './control'
 
 
@@ -22,8 +21,8 @@ function reportError(target, errorText) {
 function okProceed(target) {
     target.style.color = '#03c04a'
     target.innerHTML = "OK!"
-
-    letsGoToTheTests(data)
+    console.log("PROCEED")
+    new Control().show("rule", [data])
     return
 }
 
@@ -31,13 +30,14 @@ function tempBypass() {
     data.name = "test ton"
     data.testType = "colored"
     data.eye = "both"
-    new Control().show("rule", data)
+    data.hn = "4567891"
+    new Control().show("rule", [data])
 }
 
 const formSubmit = (ev) => {
     ev.preventDefault()
-    tempBypass()
-    return;
+    // tempBypass()
+    // return;
     let errorText = "hey!"
     const formErrorEl = document.getElementById("form-error")
 
@@ -60,37 +60,20 @@ const formSubmit = (ev) => {
         errorText = "โปรดใส่ตัวตนอย่างน้อย 1 ช่อง"
         reportError(formErrorEl, errorText)
         return;
+    }
 
-    } else if (data.name && !data.hn) {
-        //console.log('C2')
-        validateName(data.name)
-        return;
-
-    } else if (!data.name && data.hn) {
-        //console.log('C3')
-        validateHN(data.hn)
-        return;
-
-    } else {
-        //console.log('C4')
-        if (validateName(data.name) && validateHN(data.hn)) {
-            //console.log("case1")
-            validateName(data.name)
-            return;
-        } else if (!validateName(data.name) && validateHN(data.hn)) {
-            //console.log("case2")
-            validateName(data.name)
-            return;
-        } else if (validateName(data.name) && !validateHN(data.hn)) {
-            //console.log("case3")
-            validateHN(data.hn)
-            return;
-        } else {
-            //console.log("case4")
-            errorText = "ชื่อ นามสกุล หรือ HN ไม่ถูกต้อง"
-            reportError(formErrorEl, errorText)
-            return;
+    const validateArr = []
+    if (data.name) validateArr.push(validateName(data.name))
+    if (data.hn) validateArr.push(validateHN(data.hn))
+    console.log(validateArr)
+    let success = true
+    validateArr.forEach(b => {
+        if (!b) {
+            success = false
         }
+    })
+    if (success) {
+        okProceed(formErrorEl)
     }
 }
 
@@ -116,7 +99,6 @@ const validateName = (name) => {
                 reportError(formErrorEl, error)
                 return successState
             } else {
-                okProceed(formErrorEl)
                 return successState = true
             }
         }
@@ -138,7 +120,7 @@ const validateHN = (hn) => {
         reportError(formErrorEl, errorText)
         return successState
     } else {
-        okProceed(formErrorEl)
+
         return successState = true
     }
 }

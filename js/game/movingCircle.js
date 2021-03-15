@@ -3,7 +3,9 @@ import anime from 'animejs'
 
 import getRandomItem from '../utils/getRandomItem'
 import shuffle from '../utils/shuffle'
-import { SMALL, MEDIUM, LARGE } from './gameBegin'
+import { SMALL, MEDIUM } from './gameBegin'
+
+export const ANIM_DURATION = 750
 
 export class MovingCircle {
     // represent 1 moving circle
@@ -121,7 +123,7 @@ export class MovingCircle {
         return new Promise(resolve => {
             this.animId = anime({
                 targets: this.circle,
-                duration: () => 750,
+                duration: () => ANIM_DURATION,
                 easing: "linear",
                 rotate: [0, 720 * direction],
                 autoplay: false,

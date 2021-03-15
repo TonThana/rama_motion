@@ -1,9 +1,19 @@
 import { Control } from './control'
 import { mean, standardDeviation } from 'simple-statistics'
-
+import { SMALL, MEDIUM, LARGE } from './game/gameBegin'
+import { ANIM_DURATION } from "./game/movingCircle";
 // In this case we can't access the SVG element directly as it's hidden inside the <object> element. So first, we have to get the object and then access its contentDocument. Once we have the SVG document, we can continue as before.
-export const resultEntry = (result) => {
-    console.log(result[0])
+export const resultEntry = (result, info) => {
+    document.getElementById('identity').innerText = `Identifier: ${info.name || ''} ${info.hn || ''}`
+    document.getElementById("test-type").innerText = `Test type: ${info.testType}, ${info.eye} eye`
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = dd + '/' + mm + '/' + yyyy;
+    document.getElementById("date-time").innerText = `Date: ${today}`
     // check if result is bw or colored
     if (result[0].colorMode === "kw") {
 
@@ -14,6 +24,10 @@ export const resultEntry = (result) => {
             renderResult(svgDoc, result)
 
         })
+
+        const numericalKw = document.getElementById("blackwhite-numerical")
+        let numericalResult = numericalSummary(result)
+        numericalKw.innerHTML = numericalResult
 
     } else {
         // separate into by and rg
@@ -52,12 +66,13 @@ export const resultEntry = (result) => {
         numericalResult = numericalSummary(redgreen)
 
         numericalRg.innerHTML = numericalResult
-
     }
 
-
-
-
+    const homeButton = document.getElementById("result-button-home")
+    homeButton.addEventListener("click", ev => {
+        ev.preventDefault()
+        new Control().show("regis")
+    })
 }
 
 const renderResult = (svgDoc, result) => {
@@ -138,25 +153,27 @@ const numericalSummary = (result) => {
         return res.correctReaction !== 101 && res.ectopicReaction === 101
     })
     let pureCorrectTime = []
-    pureCorrect.forEach(p => pureCorrectTime.push(p.correctReaction))
+    pureCorrect.forEach(p => pureCorrectTime.push(p.correctReaction * ANIM_DURATION / 100))
 
+    // seperate based on size
     let pureCorrectSmall = pureCorrect.filter((res) => {
-        return res.size === 'small'
+        return res.size === SMALL
     })
     let pureCorrectMedium = pureCorrect.filter((res) => {
-        return res.size === 'medium'
+        return res.size === MEDIUM
     })
     let pureCorrectLarge = pureCorrect.filter((res) => {
-        return res.size === 'large'
+        return res.size === LARGE
     })
+
     let pureCorrectSmallTime = []
-    pureCorrectSmall.forEach(p => pureCorrectSmallTime.push(p.correctReaction))
+    pureCorrectSmall.forEach(p => pureCorrectSmallTime.push(p.correctReaction * ANIM_DURATION / 100))
 
     let pureCorrectMediumTime = []
-    pureCorrectMedium.forEach(p => pureCorrectMediumTime.push(p.correctReaction))
+    pureCorrectMedium.forEach(p => pureCorrectMediumTime.push(p.correctReaction * ANIM_DURATION / 100))
 
     let pureCorrectLargeTime = []
-    pureCorrectLarge.forEach(p => pureCorrectLargeTime.push(p.correctReaction))
+    pureCorrectLarge.forEach(p => pureCorrectLargeTime.push(p.correctReaction * ANIM_DURATION / 100))
 
     const numericalResult = {
         total: total,
@@ -178,12 +195,12 @@ const numericalSummary = (result) => {
     }
     return `<div class='numerical'>
         <div>correct count: ${numericalResult.pureCorrectCount}/${numericalResult.total}</div>
-        <div>correct mean: ${numericalResult.pureCorrectMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectSd).toFixed(2)}%</div>
+        <div>correct mean: ${numericalResult.pureCorrectMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectSd).toFixed(2)} ms</div>
         <div>small correct count: ${numericalResult.pureCorrectSmallCount}/96</div>
-        <div>small correct mean: ${numericalResult.pureCorrectSmallMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectSmallSd).toFixed(2)}%</div>
+        <div>small correct mean: ${numericalResult.pureCorrectSmallMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectSmallSd).toFixed(2)} ms</div>
         <div>medium correct count: ${numericalResult.pureCorrectMediumCount}/24</div>
-        <div>medium correct mean: ${numericalResult.pureCorrectMediumMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectMediumSd).toFixed(2)}%</div>
+        <div>medium correct mean: ${numericalResult.pureCorrectMediumMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectMediumSd).toFixed(2)} ms</div>
         <div>large correct count: ${numericalResult.pureCorrectLargeCount}/6</div>
-        <div>large correct mean: ${numericalResult.pureCorrectLargeMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectLargeSd).toFixed(2)}%</div>
+        <div>large correct mean: ${numericalResult.pureCorrectLargeMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectLargeSd).toFixed(2)} ms</div>
         </div>`
 }

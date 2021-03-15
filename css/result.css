@@ -36,3 +36,14 @@
     
     text-align: left;
 }
+
+#result-info {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+#result-button {
+    display: flex;
+    justify-content: center;
+}
