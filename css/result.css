@@ -1,24 +1,33 @@
-#result {
+ #result {
     box-sizing: border-box;
-    position: absolute;
-    top: 0;
-    left:0;
-    /* font-size:10em; */
-    width: 100vw;
+    overflow-y:scroll;
+    position: relative;
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    padding: 20px;
-    overflow: auto;
+    padding:20px;
 }
 
-#result-pictorial {
-    width:80%;
+
+#result {
+    table-layout: fixed;
+    width: 100%;  
+    
 }
 
-#result-svg-object {
-    width: 100%;
-    /* padding: auto; */
+#result object {
+    max-width: 500px;
+    max-height: 500px;
 }
 
+#result .off {
+    display: none;
+}
+
+#result-table > table, th, td {
+    padding:10px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+#result-heading>* {
+    font-weight: normal;
+}

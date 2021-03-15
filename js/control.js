@@ -4,6 +4,7 @@ import { regis } from './regis'
 import { ruleEntry } from './rule'
 import { resultEntry } from './result'
 import { result } from './example_result/example_result'
+import { result_colored } from './example_result/example_result_colored'
 
 const regisLandingArt = new RegisLandingArt()
 
@@ -61,9 +62,9 @@ export class Control {
 window.onload = function () {
     // initial
     const control = new Control()
-    // control.show("regis")
+    control.show("regis")
     // regis()
     // temp bypass to result
-    control.show("result", result)
+    control.show("result", result_colored)
 }
 
