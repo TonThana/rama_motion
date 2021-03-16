@@ -1,10 +1,10 @@
 import anime from 'animejs'
-import { Control } from './control'
+import Control from './control'
 import { getScreenSize } from './game/gameBegin'
-
-export const ruleEntry = (data) => {
-
-
+let data
+export const ruleEntry = (regisdata) => {
+    data = regisdata
+    console.log("rule entry")
     // unlock art
     const eye = data.eye
     console.log(eye)
@@ -26,13 +26,22 @@ export const ruleEntry = (data) => {
         }
     })
 
+    const instruction = document.getElementById("rule-instruction")
+    const eyeinstruction = document.getElementById("rule-eye")
+
 
     if (eye === "right") {
         document.getElementById("close-left").style.right = `0`
+        instruction.style.gridArea = "a"
+        eyeinstruction.innerHTML = "เอามือปิดตา<span style='color: #06c258; font-weight: bold;'>ซ้าย</span>"
     } else if (eye === "both") {
         document.getElementById("close-none").style.left = `0`
+        instruction.style.gridArea = "b"
+
     } else {
         document.getElementById("close-right").style.left = `0`
+        instruction.style.gridArea = "b"
+        eyeinstruction.innerHTML = "เอามือปิดตา<span style='color: #a1045a; font-weight: bold;'>ขวา</span>"
     }
 
     // repeat logic as gameBegin 
@@ -59,40 +68,35 @@ export const ruleEntry = (data) => {
     const oneBoxWidth = oneBoxOnShorterDim < oneBoxOnLongerDim ? oneBoxOnShorterDim : oneBoxOnLongerDim
 
 
-    // const parentSvg = document.getElementById("demon-circle-parent")
-    // parentSvg.style.width = oneBoxWidth * NUMBER_OF_COLS
-    // parentSvg.style.height = oneBoxWidth * NUMBER_OF_ROWS
-    // //
-    // centralCircle.style.fill = 'black'
-    // centralCircle.style.cx = oneBoxWidth * NUMBER_OF_COLS / 2
-    // centralCircle.style.cy = oneBoxWidth * NUMBER_OF_ROWS / 2
-    // anime({
-    //     targets: centralCircle,
-    //     opacity: [0, 1],
-    //     r: [0, 5],
-    //     duration: 500,
-    //     easing: "linear"
-    // })
-
     let distanceFromScreenPx = (oneBoxWidth * NUMBER_OF_COLS / 2) / Math.tan(24 * Math.PI / 180)
 
     let distanceFromScreenCM = pxTomm(distanceFromScreenPx)
 
-    let distanceInstruction = `สายตาจ้องจุดดำตรงกลาง ปลายจมูกห่างจากจอ ${distanceFromScreenCM.toFixed(2)} ซม.`
-    console.log(distanceInstruction)
+    document.getElementById("rule-distance").innerText = distanceFromScreenCM.toFixed(2)
 
-    const control = new Control()
+
     // add btn event
-    document.getElementById("rule-button-regis").addEventListener('click', (ev) => {
-        ev.preventDefault()
-        ev.stopPropagation()
-        control.show('regis', [null])
-    })
-    document.getElementById("rule-button-game").addEventListener('click', ev => {
-        ev.preventDefault()
-        ev.stopPropagation()
-        control.show('game', [data])
-    })
+    const btnRegis = document.getElementById('rule-button-regis');
+    btnRegis.removeEventListener('click', gotoRegis)
+    btnRegis.addEventListener('click', gotoRegis)
+
+    const btnGame = document.getElementById('rule-button-game');
+    btnGame.removeEventListener('click', gotoGame)
+    btnGame.addEventListener('click', gotoGame)
+}
+
+function gotoRegis(ev) {
+    console.log("go regis from rule")
+    ev.preventDefault()
+    ev.stopPropagation()
+    Control.show('regis', [null])
+}
+
+function gotoGame(ev) {
+    console.log("go game from rule")
+    ev.preventDefault()
+    ev.stopPropagation()
+    Control.show('game', [data])
 }
 
 

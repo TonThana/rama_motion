@@ -1,4 +1,4 @@
-import { Control } from './control'
+import Control from './control'
 
 
 const data = {}
@@ -22,7 +22,7 @@ function okProceed(target) {
     target.style.color = '#03c04a'
     target.innerHTML = "OK!"
     console.log("PROCEED")
-    new Control().show("rule", [data])
+    Control.show("rule", [data])
     return
 }
 
@@ -31,7 +31,7 @@ function tempBypass() {
     data.testType = "colored"
     data.eye = "both"
     data.hn = "4567891"
-    new Control().show("rule", [data])
+    Control.show("rule", [data])
 }
 
 const formSubmit = (ev) => {

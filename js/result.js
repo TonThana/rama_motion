@@ -1,4 +1,4 @@
-import { Control } from './control'
+import Control from './control'
 import { mean, standardDeviation } from 'simple-statistics'
 import { SMALL, MEDIUM, LARGE } from './game/gameBegin'
 import { ANIM_DURATION } from "./game/movingCircle";
@@ -16,6 +16,8 @@ export const resultEntry = (result, info) => {
     document.getElementById("date-time").innerText = `Date: ${today}`
     // check if result is bw or colored
     if (result[0].colorMode === "kw") {
+        document.getElementById("blueyellow").classList.add("off")
+        document.getElementById("redgreen").classList.add("off")
 
         const resultObj = document.getElementById("result-svg-object")
         document.getElementById("blackwhite").classList.remove("off")
@@ -31,6 +33,10 @@ export const resultEntry = (result, info) => {
 
     } else {
         // separate into by and rg
+
+        // turn off not related
+        document.getElementById("blackwhite").classList.add("off")
+
         const blueyellow = result.filter(function (resItem) {
             return resItem.colorMode === "by"
         });
@@ -71,7 +77,7 @@ export const resultEntry = (result, info) => {
     const homeButton = document.getElementById("result-button-home")
     homeButton.addEventListener("click", ev => {
         ev.preventDefault()
-        new Control().show("regis")
+        Control.show("regis")
     })
 }
 
@@ -154,6 +160,8 @@ const numericalSummary = (result) => {
     })
     let pureCorrectTime = []
     pureCorrect.forEach(p => pureCorrectTime.push(p.correctReaction * ANIM_DURATION / 100))
+    let pureCorrectCount = pureCorrectTime.length
+    if (pureCorrectCount === 0) pureCorrectTime.push(0)
 
     // seperate based on size
     let pureCorrectSmall = pureCorrect.filter((res) => {
@@ -168,28 +176,34 @@ const numericalSummary = (result) => {
 
     let pureCorrectSmallTime = []
     pureCorrectSmall.forEach(p => pureCorrectSmallTime.push(p.correctReaction * ANIM_DURATION / 100))
+    let pureCorrectSmallTimeCount = pureCorrectSmallTime.length
+    if (pureCorrectSmallTimeCount === 0) pureCorrectSmallTime.push(0)
 
     let pureCorrectMediumTime = []
     pureCorrectMedium.forEach(p => pureCorrectMediumTime.push(p.correctReaction * ANIM_DURATION / 100))
+    let pureCorrectMediumTimeCount = pureCorrectMediumTime.length
+    if (pureCorrectMediumTimeCount === 0) pureCorrectMediumTime.push(0)
 
     let pureCorrectLargeTime = []
     pureCorrectLarge.forEach(p => pureCorrectLargeTime.push(p.correctReaction * ANIM_DURATION / 100))
+    let pureCorrectLargeTimeCount = pureCorrectLargeTime.length
+    if (pureCorrectLargeTimeCount === 0) pureCorrectLargeTime.push(0)
 
     const numericalResult = {
-        total: total,
-        pureCorrectCount: pureCorrectTime.length,
+        total,
+        pureCorrectCount,
         pureCorrectMean: mean(pureCorrectTime),
         pureCorrectSd: standardDeviation(pureCorrectTime),
         // small
-        pureCorrectSmallCount: pureCorrectSmallTime.length,
+        pureCorrectSmallCount: pureCorrectSmallTimeCount,
         pureCorrectSmallMean: mean(pureCorrectSmallTime),
         pureCorrectSmallSd: standardDeviation(pureCorrectSmallTime),
         // medium
-        pureCorrectMediumCount: pureCorrectMediumTime.length,
+        pureCorrectMediumCount: pureCorrectMediumTimeCount,
         pureCorrectMediumMean: mean(pureCorrectMediumTime),
         pureCorrectMediumSd: standardDeviation(pureCorrectMediumTime),
         // large
-        pureCorrectLargeCount: pureCorrectLargeTime.length,
+        pureCorrectLargeCount: pureCorrectLargeTimeCount,
         pureCorrectLargeMean: mean(pureCorrectLargeTime),
         pureCorrectLargeSd: standardDeviation(pureCorrectLargeTime)
     }

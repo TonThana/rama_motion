@@ -12,9 +12,7 @@
 }
 
 
-#demon-circle-parent {
-    position: absolute;
-}
+
 
 .rule-art {
     position: absolute;
@@ -26,7 +24,7 @@
 
 .rule-art object {
     height:100%;
-    opacity:0.5
+ 
 }
 
 #rule-proper .off {
@@ -38,15 +36,23 @@
     grid-template-rows: repeat(4,1fr);
     grid-template-columns: repeat(4,1fr);
     grid-template-areas: 
-    "a a a a"
-    "b b b b"
-    "c c c c"
+    "a a b b"
+    "a a b b"
+    "a a b b"
     "d d d d"
     ;
     width: 100%;
     height: 100%;
 }
 
+#rule-instruction {
+    line-height: 1.5;
+    font-size: 1.5em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 #rule-button-group {
     grid-area : d;

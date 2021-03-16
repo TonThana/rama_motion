@@ -3,15 +3,13 @@ import RegisLandingArt from './regisArt'
 import { regis } from './regis'
 import { ruleEntry } from './rule'
 import { resultEntry } from './result'
-import { result } from './example_result/example_result'
-import { result_colored } from './example_result/example_result_colored'
 
 const regisLandingArt = new RegisLandingArt()
 
 // regis -> rules
 // rules -> regis
 
-export class Control {
+class Control {
     constructor() {
         console.log("CONTROL")
         this.regisPage = document.getElementById("regis")
@@ -60,18 +58,4 @@ export class Control {
     }
 }
 
-window.onload = function () {
-    // initial
-    const control = new Control()
-    control.show("regis")
-    // regis()
-    // temp bypass to result
-    // let testdata = {
-    //     name: "test ton",
-    //     testType: "colored",
-    //     eye: "both",
-    //     hn: "4567891"
-    // }
-    // control.show("result", [result_colored, testdata])
-}
-
+export default new Control()

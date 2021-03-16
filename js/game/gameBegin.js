@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime'
 import getRandomInt from '../utils/getRandomInt'
 import { MovingCircle } from './movingCircle'
 import shuffle from '../utils/shuffle'
-import { Control } from '../control'
+import Control from '../control'
 
 // some variables
 let SCREEN_WIDTH, SCREEN_HEIGHT
@@ -186,7 +186,7 @@ async function startMotion() {
     }
     console.log(endData)
     // TODO: -> result page
-    new Control().show('result', [endData, info])
+    Control.show('result', [endData, info])
 }
 
 
