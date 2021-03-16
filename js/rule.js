@@ -3,12 +3,42 @@ import { Control } from './control'
 import { getScreenSize } from './game/gameBegin'
 
 export const ruleEntry = (data) => {
-    console.log(data)
+
+
+    // unlock art
+    const eye = data.eye
+    console.log(eye)
+    const whichart = {
+        "left": "close-right",
+        "right": "close-left",
+        "both": "close-none",
+    }
+    console.log(whichart)
+
+    Object.keys(whichart).forEach(art => {
+
+        if (eye === art) {
+            console.log(document.getElementById(whichart[art]))
+            document.getElementById(whichart[art]).classList.remove("off")
+
+        } else {
+            document.getElementById(whichart[art]).classList.add("off")
+        }
+    })
+
+
+    if (eye === "right") {
+        document.getElementById("close-left").style.right = `0`
+    } else if (eye === "both") {
+        document.getElementById("close-none").style.left = `0`
+    } else {
+        document.getElementById("close-right").style.left = `0`
+    }
+
     // repeat logic as gameBegin 
     const screenSize = getScreenSize()
     let SCREEN_WIDTH = screenSize.width
     let SCREEN_HEIGHT = screenSize.height
-    const centralCircle = document.getElementById("demon-central-fix")
     // position circles
     let longerDim;
     let shorterDim;
@@ -20,7 +50,7 @@ export const ruleEntry = (data) => {
         shorterDim = SCREEN_WIDTH
     }
 
-    // must 6 shorter dim (row)
+    // // must 6 shorter dim (row)
     const NUMBER_OF_ROWS = 8
     const NUMBER_OF_COLS = 12
     const oneBoxOnShorterDim = shorterDim / NUMBER_OF_ROWS
@@ -29,20 +59,20 @@ export const ruleEntry = (data) => {
     const oneBoxWidth = oneBoxOnShorterDim < oneBoxOnLongerDim ? oneBoxOnShorterDim : oneBoxOnLongerDim
 
 
-    const parentSvg = document.getElementById("demon-circle-parent")
-    parentSvg.style.width = oneBoxWidth * NUMBER_OF_COLS
-    parentSvg.style.height = oneBoxWidth * NUMBER_OF_ROWS
-    //
-    centralCircle.style.fill = 'black'
-    centralCircle.style.cx = oneBoxWidth * NUMBER_OF_COLS / 2
-    centralCircle.style.cy = oneBoxWidth * NUMBER_OF_ROWS / 2
-    anime({
-        targets: centralCircle,
-        opacity: [0, 1],
-        r: [0, 5],
-        duration: 500,
-        easing: "linear"
-    })
+    // const parentSvg = document.getElementById("demon-circle-parent")
+    // parentSvg.style.width = oneBoxWidth * NUMBER_OF_COLS
+    // parentSvg.style.height = oneBoxWidth * NUMBER_OF_ROWS
+    // //
+    // centralCircle.style.fill = 'black'
+    // centralCircle.style.cx = oneBoxWidth * NUMBER_OF_COLS / 2
+    // centralCircle.style.cy = oneBoxWidth * NUMBER_OF_ROWS / 2
+    // anime({
+    //     targets: centralCircle,
+    //     opacity: [0, 1],
+    //     r: [0, 5],
+    //     duration: 500,
+    //     easing: "linear"
+    // })
 
     let distanceFromScreenPx = (oneBoxWidth * NUMBER_OF_COLS / 2) / Math.tan(24 * Math.PI / 180)
 

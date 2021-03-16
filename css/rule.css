@@ -14,9 +14,24 @@
 
 #demon-circle-parent {
     position: absolute;
-
 }
 
+.rule-art {
+    position: absolute;
+    top:0;
+    /* left:0; */
+    height: 100vh;
+    pointer-events: none;
+}
+
+.rule-art object {
+    height:100%;
+    opacity:0.5
+}
+
+#rule-proper .off {
+    display: none;
+}
 
 #rule-proper {
     display: grid;
