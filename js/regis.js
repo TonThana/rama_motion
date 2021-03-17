@@ -4,6 +4,7 @@ import Control from './control'
 const data = {}
 export const regis = () => {
     const formEl = document.querySelector(".regis-form")
+    formEl.removeEventListener('submit', formSubmit)
     formEl.addEventListener('submit', formSubmit)
 }
 

@@ -24,7 +24,6 @@ export const resultEntry = (result, info) => {
         resultObj.addEventListener('load', () => {
             const svgDoc = resultObj.contentDocument
             renderResult(svgDoc, result)
-
         })
 
         const numericalKw = document.getElementById("blackwhite-numerical")
