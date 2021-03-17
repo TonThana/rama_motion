@@ -5,10 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html -- open",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "heroku-postbuild": "parcel build index.html"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "thai motion perimetry",
+    "heroku",
+    "tpm"
+  ],
+  "author": "tonthana",
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "7.13.9",
@@ -18,5 +23,8 @@
   "devDependencies": {
     "@babel/core": "7.13.8",
     "@babel/plugin-transform-runtime": "7.13.9"
+  },
+  "engines": {
+    "node": "14.15.3"
   }
 }
