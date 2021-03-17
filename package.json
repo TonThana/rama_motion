@@ -18,7 +18,8 @@
   "dependencies": {
     "@babel/runtime": "7.13.9",
     "animejs": "^3.2.1",
-    "simple-statistics": "^7.6.0"
+    "simple-statistics": "^7.6.0",
+    "parcel-bundler": "1.12.4"
   },
   "devDependencies": {
     "@babel/core": "7.13.8",
