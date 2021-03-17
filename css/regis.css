@@ -9,6 +9,15 @@
     top:0;
     left:0;
 }
+#regis-art {
+    position: absolute;
+    background-color: none;
+    top:0;
+    left:0;
+    height: 100vh;
+    width: 100vw;
+    z-index:-1
+}
 
 .regis-container {
     display: flex;
@@ -22,6 +31,9 @@
     align-items:center;   
 }
 
+select {
+    width:100%
+}
 
 .regis-title {
     font-size:1.5em
@@ -31,7 +43,9 @@
     margin-top:2em;
     padding: 0.2em 0;
     width:100%
+
 }
+
 
 #form-error {
     color:tomato
@@ -39,3 +53,4 @@
 .error-hidden {
     visibility: hidden;
 }
+

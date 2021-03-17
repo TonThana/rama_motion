@@ -3,6 +3,7 @@ body {
     width: 100vw;
     overflow: hidden;
     position: relative;
+    box-sizing: border-box;
 }
 
 .open-sans {
@@ -13,13 +14,18 @@ body {
     font-family: 'Proza Libre', sans-serif;
 }
 
-.k2d {
-    font-family: 'K2D', sans-serif;
+.sarabun {
+    font-family: 'Sarabun', sans-serif;
+}
+
+.playfair {
+    font-family: 'Playfair Display', serif;
 }
 
 #testControl {
     position: absolute;
-    top:0
+    top:40%;
+    left: 40%;
 }
 
 .hidden {
