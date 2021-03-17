@@ -122,9 +122,9 @@ export const game_init = (data) => {
 
 
 
-    console.log(
-        'wait 3 seconds'
-    )
+    // console.log(
+    //     'wait 3 seconds'
+    // )
     setTimeout(() => {
         startMotion()
         // external key event - detect erroneous pressing
@@ -134,6 +134,7 @@ export const game_init = (data) => {
     // position center of animation plane
     const centralCircle = document.getElementById("central-fix")
     centralCircle.style.fill = 'black'
+    // console.log(oneBoxWidth * NUMBER_OF_COLS / 2)
     centralCircle.style.cx = oneBoxWidth * NUMBER_OF_COLS / 2
     centralCircle.style.cy = oneBoxWidth * NUMBER_OF_ROWS / 2
 
@@ -169,22 +170,22 @@ export const getScreenSize = () => {
 async function startMotion() {
     const shuffled = shuffle(circles)
     for (let i = 0; i < shuffled.length; i += 1) {
-        if (i === 0) console.log("START!")
+        // if (i === 0) console.log("START!")
         // lengthen duration actual
         let waitTime = getRandomInt(100, 200)
         await shuffled[i].animate()
-        console.log("waitTime: ", waitTime)
+        // console.log("waitTime: ", waitTime)
         // 0 -> waitTime
         await shuffled[i].postAnimate(waitTime)
     }
-    console.log("collecting data")
+    // console.log("collecting data")
     let endData = []
     for (let i = 0; i < shuffled.length; i += 1) {
         let endResult = shuffled[i].collectData()
         endResult['index'] = i
         endData.push(endResult)
     }
-    console.log(endData)
+    // console.log(endData)
     // TODO: -> result page
     Control.show('result', [endData, info])
 }

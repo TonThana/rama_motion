@@ -92,14 +92,14 @@ export class MovingCircle {
     destroy() {
         // remove dom
         this.circle.remove()
-        console.log("destroy!")
+        // console.log("destroy!")
     }
 
     onKeyDown = (ev) => {
         ev.preventDefault()
         if (ev.code !== "Space") return;
         // store stat
-        console.log(this.animId.progress, "correct")
+        // console.log(this.animId.progress, "correct")
         // save the time
         this.correctReaction = Number(this.animId.progress)
         // seek the end to trigger complete -> resolve
@@ -110,7 +110,7 @@ export class MovingCircle {
     onKeyDownEctopic = (ev) => {
         ev.preventDefault()
         if (ev.code !== "Space") return;
-        console.log(this.animIdEctopic.progress, "ectopic")
+        // console.log(this.animIdEctopic.progress, "ectopic")
         this.ectopicReaction = Number(this.animIdEctopic.progress)
         // save the time
     }
@@ -130,7 +130,7 @@ export class MovingCircle {
                 fill: shuffle([this.colorComb[0], this.colorComb[1]]),
                 loop: false,
                 begin: () => {
-                    console.log("BEGIN")
+                    // console.log("BEGIN")
                     this.show()
                 },
                 // currently trigger twice
@@ -170,11 +170,11 @@ export class MovingCircle {
                 autoplay: false,
                 loop: false,
                 begin: () => {
-                    console.log("wait begin")
+                    // console.log("wait begin")
                 },
                 // currently trigger twice
                 complete: () => {
-                    console.log("wait complete")
+                    // console.log("wait complete")
                     window.removeEventListener("keydown", this.onKeyDownEctopic)
                     resolve()
                 },

@@ -22,7 +22,7 @@ function reportError(target, errorText) {
 function okProceed(target) {
     target.style.color = '#03c04a'
     target.innerHTML = "OK!"
-    console.log("PROCEED")
+    // console.log("PROCEED")
     Control.show("rule", [data])
     return
 }
@@ -66,7 +66,7 @@ const formSubmit = (ev) => {
     const validateArr = []
     if (data.name) validateArr.push(validateName(data.name))
     if (data.hn) validateArr.push(validateHN(data.hn))
-    console.log(validateArr)
+    // console.log(validateArr)
     let success = true
     validateArr.forEach(b => {
         if (!b) {

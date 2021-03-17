@@ -4,21 +4,21 @@ import { getScreenSize } from './game/gameBegin'
 let data
 export const ruleEntry = (regisdata) => {
     data = regisdata
-    console.log("rule entry")
+    // console.log("rule entry")
     // unlock art
     const eye = data.eye
-    console.log(eye)
+    // console.log(eye)
     const whichart = {
         "left": "close-right",
         "right": "close-left",
         "both": "close-none",
     }
-    console.log(whichart)
+    // console.log(whichart)
 
     Object.keys(whichart).forEach(art => {
 
         if (eye === art) {
-            console.log(document.getElementById(whichart[art]))
+            // console.log(document.getElementById(whichart[art]))
             document.getElementById(whichart[art]).classList.remove("off")
 
         } else {
@@ -86,14 +86,14 @@ export const ruleEntry = (regisdata) => {
 }
 
 function gotoRegis(ev) {
-    console.log("go regis from rule")
+    // console.log("go regis from rule")
     ev.preventDefault()
     ev.stopPropagation()
     Control.show('regis', [null])
 }
 
 function gotoGame(ev) {
-    console.log("go game from rule")
+    // console.log("go game from rule")
     ev.preventDefault()
     ev.stopPropagation()
     Control.show('game', [data])

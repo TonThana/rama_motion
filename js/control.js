@@ -8,7 +8,7 @@ const regisLandingArt = new RegisLandingArt()
 
 class Control {
     constructor() {
-        console.log("CONTROL")
+        // console.log("CONTROL")
         this.regisPage = document.getElementById("regis")
         this.gamePage = document.getElementById("game")
         this.rulePage = document.getElementById("rule")
@@ -28,8 +28,8 @@ class Control {
             this.pagesExitFn = {
                 "game": [game_exit],
                 "regis": [regisLandingArt.stopAnimate],
-                "rule": [() => console.log('rule exit')],
-                "result": [() => console.log('result exit')]
+                "rule": [() => { }],
+                "result": [() => { }]
             }
     }
 
