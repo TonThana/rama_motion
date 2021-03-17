@@ -56,8 +56,9 @@ export const game_init = (data) => {
 
 
     const parentSvg = document.getElementById("circle-parent")
-    parentSvg.style.width = oneBoxWidth * NUMBER_OF_COLS
-    parentSvg.style.height = oneBoxWidth * NUMBER_OF_ROWS
+    parentSvg.setAttributeNS(null, 'width', oneBoxWidth * NUMBER_OF_COLS)
+    parentSvg.setAttributeNS(null, 'height', oneBoxWidth * NUMBER_OF_ROWS)
+
 
 
     // // small
@@ -135,8 +136,8 @@ export const game_init = (data) => {
     const centralCircle = document.getElementById("central-fix")
     centralCircle.style.fill = 'black'
     // console.log(oneBoxWidth * NUMBER_OF_COLS / 2)
-    centralCircle.setAttributeNS(null, 'cx', oneBoxWidth * NUMBER_OF_COLS / 2)
-    centralCircle.setAttributeNS(null, 'cy', oneBoxWidth * NUMBER_OF_ROWS / 2)
+    centralCircle.setAttributeNS(null, 'cx', `${oneBoxWidth * NUMBER_OF_COLS / 2}px`)
+    centralCircle.setAttributeNS(null, 'cy', `${oneBoxWidth * NUMBER_OF_ROWS / 2}px`)
 
     console.log(centralCircle)
 
