@@ -135,8 +135,10 @@ export const game_init = (data) => {
     const centralCircle = document.getElementById("central-fix")
     centralCircle.style.fill = 'black'
     // console.log(oneBoxWidth * NUMBER_OF_COLS / 2)
-    centralCircle.style.cx = oneBoxWidth * NUMBER_OF_COLS / 2
-    centralCircle.style.cy = oneBoxWidth * NUMBER_OF_ROWS / 2
+    centralCircle.setAttributeNS(null, 'cx', oneBoxWidth * NUMBER_OF_COLS / 2)
+    centralCircle.setAttributeNS(null, 'cy', oneBoxWidth * NUMBER_OF_ROWS / 2)
+
+    console.log(centralCircle)
 
     anime({
         targets: "#central-fix",
