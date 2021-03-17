@@ -14,5 +14,5 @@ window.onload = function () {
     //     eye: "both",
     //     hn: "4567891"
     // }
-    // control.show("result", [result_colored, testdata])
+    // Control.show("result", [result_colored, testdata])
 }
