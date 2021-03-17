@@ -1,6 +1,5 @@
 import anime from 'animejs'
 
-
 import getRandomItem from '../utils/getRandomItem'
 import shuffle from '../utils/shuffle'
 import { SMALL, MEDIUM } from './gameBegin'
