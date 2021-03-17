@@ -6,9 +6,6 @@ import { resultEntry } from './result'
 
 const regisLandingArt = new RegisLandingArt()
 
-// regis -> rules
-// rules -> regis
-
 class Control {
     constructor() {
         console.log("CONTROL")
