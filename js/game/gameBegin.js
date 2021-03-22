@@ -139,7 +139,15 @@ export const game_init = (data) => {
     centralCircle.setAttributeNS(null, 'cx', `${oneBoxWidth * NUMBER_OF_COLS / 2}px`)
     centralCircle.setAttributeNS(null, 'cy', `${oneBoxWidth * NUMBER_OF_ROWS / 2}px`)
 
-    console.log(centralCircle)
+
+    const textCounter = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+    textCounter.setAttributeNS(null, "x", oneBoxWidth * NUMBER_OF_COLS / 2 + 10)
+    textCounter.setAttributeNS(null, "y", oneBoxWidth * NUMBER_OF_ROWS / 2 + 10)
+    textCounter.setAttributeNS(null, 'id', 'counter')
+    textCounter.setAttributeNS(null, "class", 'proza-libre')
+
+
+    parentSvg.appendChild(textCounter)
 
     anime({
         targets: "#central-fix",
@@ -171,26 +179,35 @@ export const getScreenSize = () => {
 // const delayTimer = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 async function startMotion() {
+
+
+    const textCounter = document.getElementById("counter")
+
     const shuffled = shuffle(circles)
-    for (let i = 0; i < shuffled.length; i += 1) {
+    const total = shuffled.length
+    for (let i = 0; i < total; i += 1) {
         // if (i === 0) console.log("START!")
         // lengthen duration actual
+        textCounter.textContent = `${i + 1}/${total}`
         let waitTime = getRandomInt(500, 2000)
         await shuffled[i].animate()
         // console.log("waitTime: ", waitTime)
         // 0 -> waitTime
+
         await shuffled[i].postAnimate(waitTime)
     }
     // console.log("collecting data")
     let endData = []
-    for (let i = 0; i < shuffled.length; i += 1) {
+    for (let i = 0; i < total; i += 1) {
         let endResult = shuffled[i].collectData()
         endResult['index'] = i
         endData.push(endResult)
     }
     // console.log(endData)
-    // TODO: -> result page
+
     Control.show('result', [endData, info])
 }
+
+
 
 
