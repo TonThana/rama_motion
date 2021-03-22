@@ -188,12 +188,12 @@ async function startMotion() {
     for (let i = 0; i < total; i += 1) {
         // if (i === 0) console.log("START!")
         // lengthen duration actual
-        textCounter.textContent = `${i + 1}/${total}`
+
         let waitTime = getRandomInt(500, 2000)
         await shuffled[i].animate()
         // console.log("waitTime: ", waitTime)
         // 0 -> waitTime
-
+        textCounter.textContent = `${i + 1}/${total}`
         await shuffled[i].postAnimate(waitTime)
     }
     // console.log("collecting data")
