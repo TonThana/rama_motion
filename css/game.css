@@ -26,4 +26,7 @@ circle {
     visibility: visible;
 }
 
-
+#counter {
+    font-size: 10px;
+    color: gray;
+}
