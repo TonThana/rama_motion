@@ -47,8 +47,9 @@ class Control {
                     this.pagesExitFn[p].forEach(f => f.apply(this))
                 }
             } else {
-                this.pages[p].classList.remove('hidden')
+
                 this.pagesEntryFn[p].forEach(f => f.apply(this, data))
+                this.pages[p].classList.remove('hidden')
             }
         })
 

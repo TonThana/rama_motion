@@ -106,7 +106,7 @@ const formSubmit = (ev) => {
 
 
     data.name = ev.target.name.value
-    data.hn = ev.target.hn.value
+    // data.hn = ev.target.hn.value
     data.testType = document.getElementById("test").value
     data.eye = document.getElementById("eye").value
 
@@ -116,16 +116,16 @@ const formSubmit = (ev) => {
         return;
     }
 
-    if (!data.name && !data.hn) {
+    if (!data.name) {
         //console.log('C1')
-        errorText = "โปรดใส่ตัวตนอย่างน้อย 1 ช่อง"
+        errorText = "โปรดใส่ตัวตน"
         reportError(formErrorEl, errorText)
         return;
     }
 
     const validateArr = []
     if (data.name) validateArr.push(validateName(data.name))
-    if (data.hn) validateArr.push(validateHN(data.hn))
+    // if (data.hn) validateArr.push(validateHN(data.hn))
     // console.log(validateArr)
     let success = true
     validateArr.forEach(b => {
@@ -144,46 +144,50 @@ const validateName = (name) => {
     let splitted = name.split(" ")
     const formErrorEl = document.getElementById("form-error")
     formErrorEl.classList.remove('error-hidden')
-    if (splitted.length != 2) {
+    if (splitted.length < 2) {
         errorText = "ใส่ทั้งชื่อและนามสกุล"
         reportError(formErrorEl, errorText)
         return successState
-    } else {
-        if (mystrip(splitted[0]).length == 0 || mystrip(splitted[1]).length == 0) {
-            errorText = "ใส่ทั้งชื่อและนามสกุล"
-            reportError(formErrorEl, error)
-            return successState
-        } else {
-            let mergeName = mystrip(splitted[0]) + " " + mystrip(splitted[1])
-            if ((/\d/.test(mergeName))) {
-                errorText = "ชื่อไม่ควรมีตัวเลข"
-                reportError(formErrorEl, error)
-                return successState
-            } else {
-                return successState = true
-            }
-        }
     }
-}
-
-const validateHN = (hn) => {
-    let successState = false
-    let stripped = mystrip(hn)
-    let errorText
-    const formErrorEl = document.getElementById("form-error")
-    formErrorEl.classList.remove('error-hidden')
-    if (isNaN(stripped - parseInt(stripped))) {
-        errorText = "เลขรพ.ควรมีแค่ตัวเลข"
-        reportError(formErrorEl, errorText)
-        return successState
-    } else if (stripped.length != 7) {
-        errorText = "เลขรพ.มี 7 หลัก"
-        reportError(formErrorEl, errorText)
-        return successState
-    } else {
-
+    // else {
+    //     if (mystrip(splitted[0]).length == 0 || mystrip(splitted[1]).length == 0) {
+    //         errorText = "ใส่ทั้งชื่อและนามสกุล"
+    //         reportError(formErrorEl, error)
+    //         return successState
+    //     } else {
+    //         let mergeName = mystrip(splitted[0]) + " " + mystrip(splitted[1])
+    //         if ((/\d/.test(mergeName))) {
+    //             errorText = "ชื่อไม่ควรมีตัวเลข"
+    //             reportError(formErrorEl, error)
+    //             return successState
+    //         } else {
+    //             return successState = true
+    //         }
+    //     }
+    // }
+    else {
         return successState = true
     }
 }
+
+// const validateHN = (hn) => {
+//     let successState = false
+//     let stripped = mystrip(hn)
+//     let errorText
+//     const formErrorEl = document.getElementById("form-error")
+//     formErrorEl.classList.remove('error-hidden')
+//     if (isNaN(stripped - parseInt(stripped))) {
+//         errorText = "เลขรพ.ควรมีแค่ตัวเลข"
+//         reportError(formErrorEl, errorText)
+//         return successState
+//     } else if (stripped.length != 7) {
+//         errorText = "เลขรพ.มี 7 หลัก"
+//         reportError(formErrorEl, errorText)
+//         return successState
+//     } else {
+
+//         return successState = true
+//     }
+// }
 
 regis()
