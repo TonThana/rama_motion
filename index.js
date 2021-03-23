@@ -1,16 +1,16 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const keys = require("./config/keys")
-// require("./models/TestData")
+require("./models/TestData")
 
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const app = express()
-// const TestData = mongoose.model("testdata")
+const TestData = mongoose.model("testdata")
 app.get("/api", (req, res) => {
     // test it
-    // new TestData({ name: "test ton thana prod", birthdate: "1996-08-20", testdate: "2021-03-23" }).save()
+    new TestData({ name: "test ton thana prod", birthdate: "1996-08-20", testdate: "2021-02-21" }).save()
     res.send({ hi: 'shit' })
 })
 
