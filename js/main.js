@@ -12,7 +12,7 @@ window.onload = function () {
     //     name: "test ton",
     //     testType: "colored",
     //     eye: "both",
-    //     hn: "4567891"
+    //     birthdate: new Date()
     // }
     // Control.show("result", [result_colored, testdata])
 }
