@@ -189,7 +189,7 @@ async function startMotion() {
         // if (i === 0) console.log("START!")
         // lengthen duration actual
 
-        let waitTime = getRandomInt(500, 2000)
+        let waitTime = getRandomInt(1000, 2000)
         await shuffled[i].animate()
         // console.log("waitTime: ", waitTime)
         // 0 -> waitTime
