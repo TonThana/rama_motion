@@ -107,6 +107,8 @@ const formSubmit = (ev) => {
 
     data.name = ev.target.name.value
     // data.hn = ev.target.hn.value
+    data.birthdate = ev.target.birthdate.value
+    // console.log(typeof(data.birthdate) )
     data.testType = document.getElementById("test").value
     data.eye = document.getElementById("eye").value
 
@@ -117,15 +119,20 @@ const formSubmit = (ev) => {
     }
 
     if (!data.name) {
-        //console.log('C1')
         errorText = "โปรดใส่ตัวตน"
+        reportError(formErrorEl, errorText)
+        return;
+    }
+
+    if (!data.birthdate) {
+        errorText = "โปรดระบุวันเกิด"
         reportError(formErrorEl, errorText)
         return;
     }
 
     const validateArr = []
     if (data.name) validateArr.push(validateName(data.name))
-    // if (data.hn) validateArr.push(validateHN(data.hn))
+    if (data.birthdate) validateArr.push(true)
     // console.log(validateArr)
     let success = true
     validateArr.forEach(b => {

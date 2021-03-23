@@ -4,8 +4,10 @@ import { SMALL, MEDIUM, LARGE } from './game/gameBegin'
 import { ANIM_DURATION } from "./game/movingCircle";
 // In this case we can't access the SVG element directly as it's hidden inside the <object> element. So first, we have to get the object and then access its contentDocument. Once we have the SVG document, we can continue as before.
 export const resultEntry = (result, info) => {
+    // console.log(info.birthdate)
 
-    document.getElementById('identity').innerText = `Identifier: ${info.name || ''} ${info.hn || ''}`
+    document.getElementById('identity').innerText = `Identifier: ${info.name || ''}`
+    document.getElementById("birthdate").innerText = `Birthdate: ${info.birthdate}`
     document.getElementById("test-type").innerText = `Test type: ${info.testType}, ${info.eye} eye`
 
     let today = new Date();
