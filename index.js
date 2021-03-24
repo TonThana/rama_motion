@@ -10,8 +10,12 @@ const app = express()
 const TestData = mongoose.model("testdata")
 app.get("/api", (req, res) => {
     // test it
-    new TestData({ name: "test ton thana prod", birthdate: "1996-08-20", testdate: "2021-02-21" }).save()
+    new TestData({ name: "test ton thana", birthdate: "1996-08-20", testdate: new Date() }).save()
     res.send({ hi: 'shit' })
+})
+
+app.get("/", (req, res) => {
+    res.send({ hi: "server" })
 })
 
 
@@ -28,4 +32,5 @@ if (process.env.NODE_ENV === 'production') {
 
 
 const PORT = process.env.PORT || 5000
+console.log(`Listening to port ${PORT}`)
 app.listen(PORT)

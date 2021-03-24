@@ -4,7 +4,7 @@ import getRandomItem from '../utils/getRandomItem'
 import shuffle from '../utils/shuffle'
 import { SMALL, MEDIUM } from './gameBegin'
 
-export const ANIM_DURATION = 750
+export const ANIM_DURATION = 1250
 
 export class MovingCircle {
     // represent 1 moving circle
@@ -57,7 +57,7 @@ export class MovingCircle {
     setColor = () => {
         // console.log(this.colormode)
         if (this.colormode === "kw") {
-            this.circle.setAttributeNS(null, 'style', `fill: none; stroke: #000; stroke-width: 1px`);
+            this.circle.setAttributeNS(null, 'style', `fill: none; stroke: #000; stroke-width: 2px`);
             this.colorComb = ["none", "none"]
         } else {
             // set later - need animate
