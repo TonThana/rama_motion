@@ -5,14 +5,14 @@ import { result_colored } from './example_result/example_result_colored'
 window.onload = function () {
     // initial
 
-    Control.show("regis")
+    // Control.show("regis")
     // regis()
     // temp bypass to result
-    // let testdata = {
-    //     name: "test ton",
-    //     testType: "colored",
-    //     eye: "both",
-    //     birthdate: new Date()
-    // }
-    // Control.show("result", [result_colored, testdata])
+    let testdata = {
+        name: "test ton",
+        testType: "colored",
+        eye: "both",
+        birthdate: "20/08/1996"
+    }
+    Control.show("result", [result_colored, testdata])
 }

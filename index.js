@@ -1,18 +1,27 @@
 const express = require("express")
 const mongoose = require("mongoose")
+
 const keys = require("./config/keys")
 require("./models/TestData")
+
+// const { example } = require("./models/example_testdata_db")
 
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
+
+
 const app = express()
-const TestData = mongoose.model("testdata")
-app.get("/api", (req, res) => {
-    // test it
-    new TestData({ name: "test ton thana", birthdate: "1996-08-20", testdate: new Date() }).save()
-    res.send({ hi: 'shit' })
-})
+
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
+
+// routes
+require('./routes/testdataRoutes')(app);
+
+
 
 // app.get("/", (req, res) => {
 //     res.send({ hi: "server" })

@@ -32,8 +32,8 @@ export const resultEntry = (result, info) => {
         resultObj.data = resultObj.data
 
         const numericalKw = document.getElementById("blackwhite-numerical")
-        let numericalResult = numericalSummary(result)
-        numericalKw.innerHTML = numericalResult
+        let numericalResultKw = numericalSummary(result)
+        numericalKw.innerHTML = parseNumResult(numericalResultKw)
 
     } else {
         // separate into by and rg
@@ -58,9 +58,9 @@ export const resultEntry = (result, info) => {
         })
         resultObjBy.data = resultObjBy.data
         const numericalBy = document.getElementById("blueyellow-numerical")
-        let numericalResult = numericalSummary(blueyellow)
+        let numericalResultBy = numericalSummary(blueyellow)
 
-        numericalBy.innerHTML = numericalResult
+        numericalBy.innerHTML = parseNumResult(numericalResultBy)
 
 
 
@@ -76,9 +76,9 @@ export const resultEntry = (result, info) => {
 
 
         const numericalRg = document.getElementById("redgreen-numerical")
-        numericalResult = numericalSummary(redgreen)
+        let numericalResultRg = numericalSummary(redgreen)
 
-        numericalRg.innerHTML = numericalResult
+        numericalRg.innerHTML = parseNumResult(numericalResultRg)
     }
 
     const homeButton = document.getElementById("result-button-home")
@@ -164,7 +164,7 @@ const renderResult = (svgDoc, result) => {
 
 
 const numericalSummary = (result) => {
-    const total = result.length
+    const total = Number(result.length)
 
 
     let pureCorrect = result.filter((res) => {
@@ -219,6 +219,10 @@ const numericalSummary = (result) => {
         pureCorrectLargeMean: mean(pureCorrectLargeTime),
         pureCorrectLargeSd: standardDeviation(pureCorrectLargeTime)
     }
+    return numericalResult
+}
+
+const parseNumResult = (numericalResult) => {
     return `<div class='numerical'>
         <div>correct count: ${numericalResult.pureCorrectCount}/${numericalResult.total}</div>
         <div>correct mean: ${numericalResult.pureCorrectMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectSd).toFixed(2)} ms</div>
