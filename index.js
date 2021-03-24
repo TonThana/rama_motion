@@ -14,9 +14,9 @@ app.get("/api", (req, res) => {
     res.send({ hi: 'shit' })
 })
 
-app.get("/", (req, res) => {
-    res.send({ hi: "server" })
-})
+// app.get("/", (req, res) => {
+//     res.send({ hi: "server" })
+// })
 
 
 if (process.env.NODE_ENV === 'production') {
