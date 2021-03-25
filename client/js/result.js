@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import Control from './control'
 import { mean, standardDeviation } from 'simple-statistics'
 import { SMALL, MEDIUM, LARGE } from './game/gameBegin'
@@ -14,9 +16,10 @@ export const resultEntry = (result, info) => {
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     let yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd
 
-    today = dd + '/' + mm + '/' + yyyy;
     document.getElementById("date-time").innerText = `Date: ${today}`
+    let numericalSummary = []
     // check if result is bw or colored
     if (result[0].colorMode === "kw") {
         document.getElementById("blueyellow").classList.add("off")
@@ -32,8 +35,10 @@ export const resultEntry = (result, info) => {
         resultObj.data = resultObj.data
 
         const numericalKw = document.getElementById("blackwhite-numerical")
-        let numericalResultKw = numericalSummary(result)
+        let numericalResultKw = createNumericalSummary(result)
         numericalKw.innerHTML = parseNumResult(numericalResultKw)
+
+        numericalSummary.push(numericalResultKw)
 
     } else {
         // separate into by and rg
@@ -58,11 +63,12 @@ export const resultEntry = (result, info) => {
         })
         resultObjBy.data = resultObjBy.data
         const numericalBy = document.getElementById("blueyellow-numerical")
-        let numericalResultBy = numericalSummary(blueyellow)
+        let numericalResultBy = createNumericalSummary(blueyellow)
 
         numericalBy.innerHTML = parseNumResult(numericalResultBy)
 
 
+        numericalSummary.push(numericalResultBy)
 
         // red-green
         document.getElementById("redgreen").classList.remove("off")
@@ -73,21 +79,33 @@ export const resultEntry = (result, info) => {
             renderResult(svgDoc, redgreen)
         }, false)
         resultObjRg.data = resultObjRg.data
-
-
         const numericalRg = document.getElementById("redgreen-numerical")
-        let numericalResultRg = numericalSummary(redgreen)
-
+        let numericalResultRg = createNumericalSummary(redgreen)
         numericalRg.innerHTML = parseNumResult(numericalResultRg)
+        numericalSummary.push(numericalResultRg)
     }
 
     const homeButton = document.getElementById("result-button-home")
+
+    // disable while saving result to db.
+    const testdata = constructTestDataDbEntry(info.name, info.birthdate, today, info.testType, info.eye, result, numericalSummary)
+
+    homeButton.disabled = true
+    axios.post("/api/testdata", testdata).then((res) => {
+        console.log(res)
+        homeButton.innerText = "กลับสู่หน้าแรก"
+        homeButton.disabled = false
+    }).catch(console.error)
+
     homeButton.addEventListener("click", ev => {
         ev.preventDefault()
         Control.show("regis")
     })
 }
 
+
+
+// helper
 const renderResult = (svgDoc, result) => {
 
     let correctReactionTimeR = 2
@@ -163,9 +181,9 @@ const renderResult = (svgDoc, result) => {
 }
 
 
-const numericalSummary = (result) => {
+const createNumericalSummary = (result) => {
     const total = Number(result.length)
-
+    const colorMode = result[0].colorMode
 
     let pureCorrect = result.filter((res) => {
         return res.correctReaction !== 101 && res.ectopicReaction === 101
@@ -202,6 +220,7 @@ const numericalSummary = (result) => {
     if (pureCorrectLargeTimeCount === 0) pureCorrectLargeTime.push(0)
 
     const numericalResult = {
+        colorMode,
         total,
         pureCorrectCount,
         pureCorrectMean: mean(pureCorrectTime),
@@ -233,4 +252,25 @@ const parseNumResult = (numericalResult) => {
         <div>large correct count: ${numericalResult.pureCorrectLargeCount}/6</div>
         <div>large correct mean: ${numericalResult.pureCorrectLargeMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectLargeSd).toFixed(2)} ms</div>
         </div>`
+}
+
+
+const constructTestDataDbEntry = (
+    name = "",
+    birthdate = "",
+    testdate = "",
+    testtype = "",
+    eyeside = "",
+    rawgamedata = [{}],
+    numericalsummary = [{}]
+) => {
+    return {
+        name,
+        birthdate,
+        testdate,
+        testtype,
+        eyeside,
+        rawgamedata,
+        numericalsummary
+    }
 }

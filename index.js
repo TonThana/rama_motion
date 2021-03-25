@@ -12,11 +12,11 @@ mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: tru
 
 
 const app = express()
-
-app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+app.use(express.json());
+
 
 // routes
 require('./routes/testdataRoutes')(app);

@@ -16,7 +16,7 @@ const testData = new Schema({
         row: Number,
         index: Number
     }],
-    numericalsummary: {
+    numericalsummary: [{
         total: Number,
         pureCorrectCount: Number,
         pureCorrectMean: Number,
@@ -30,8 +30,9 @@ const testData = new Schema({
         pureCorrectLargeCount: Number,
         pureCorrectLargeMean: Number,
         pureCorrectLargeSd: Number
-    }
+    }],
+    servertimestamp: Date
 })
 
 
-mongoose.model("testdata", testData)
+mongoose.model("testdata", testData, 'testdata')
