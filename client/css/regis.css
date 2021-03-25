@@ -19,16 +19,56 @@
     z-index:-1
 }
 
-#about-us {
+#modal-buttons-group {
     position: absolute;
     top: 1em;
     right:  1em;
-    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: auto;
+    height: auto;
+}
+
+#aboutusbtn {
+  
     background: none;
-    width: 7em;
-	color: lightcoral;
+    color: rgb(83, 85, 240);
+    padding: 0.5em;
     font-size: 1em;
-    border-color: lightpink
+    outline: none;
+    border-color: #58cced;
+}
+
+
+#aboutusbtn:hover { 
+    border-color: rgb(83, 85, 240);
+    color: #58cced;
+}
+
+
+#adminBtn {
+    
+    background: none;
+    color: rgb(44, 163, 107);
+    padding: 0.5em;
+    font-size: 1em;
+    outline: none;
+    border-color: #56da67;
+}
+
+#adminBtn:hover {
+    color: #56da67;
+    border-color: rgb(44, 163, 107);
+}
+
+#loginErrorMsg {
+    /* padding: 1em;
+    position: absolute;
+    bottom:0;
+    left:0;
+    color: tomato;
+    font-size: 1em */
 }
 
 
@@ -79,17 +119,7 @@ select {
 
 
 
-#popup {
-    position: absolute;
-    top:1em;
-    right:1em;
-    background: none;
-    color: salmon;
-    padding: 1em;
-    font-size: 1em;
-    outline: none;
-    border-color: sienna;
-}
+
 
 .modal {
     position: fixed;
@@ -119,12 +149,12 @@ select {
     bottom: 0;
     right: 0;
     z-index: 21;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 .modal__close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     border: none;
     outline: none;
     background: none;
@@ -133,13 +163,13 @@ select {
     font-weight: bold;
 }
 .modal__close:hover {
-    color: #000;
+    color: tomato;
 }
 .modal__container {
     position: relative;
     z-index: 22;
-    width: 50vw;
-    height:50vh;
+    max-width: 50vw;
+    min-height: 10vh;
     top: 50%;
     transform: translateY(-50%);
     /* box-shadow: 0 0 10px #fff; */

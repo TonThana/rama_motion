@@ -37,9 +37,30 @@
             </svg>
         </div>
 
-        <button data-to="jsModal" id="popup" class="jsModalTrigger proza-libre">About us</button>
+        <div id="modal-buttons-group">
+            <button data-to="aboutusModal" id="aboutusbtn" class="jsModalTrigger proza-libre">About us</button>
+            <br>
+            <button data-to="adminModal" id="adminBtn" class='jsModalTrigger proza-libre'>Admin</button>
+        </div>
+        <!-- admin modal -->
+        <div id="adminModal" class='modal'>
+            <div class="modal__overlay jsOverlay"></div>
+            <div class="modal__container sarabun">
 
-        <div id="jsModal" class="modal">
+                <form id='login-form' class='sarabun'>
+                    <label>Password:
+                    </label>
+                    <input type='password' name='adminPassword' />
+                    <button id='loginBtn' type='submit'>Login</button>
+                </form>
+                <button class="modal__close jsModalClose">&#10005;</button>
+                <br>
+                <div class='sarabun hidden' id='loginErrorMsg'></div>
+            </div>
+
+        </div>
+        <!-- about us modal -->
+        <div id="aboutusModal" class="modal">
             <div class="modal__overlay jsOverlay"></div>
             <div class="modal__container sarabun">
                 <p>
@@ -188,7 +209,5 @@
 
 </body>
 <script src=' ./js/main.js'></script>
-<!-- <script src="./js/regis.js"></script> -->
-<!-- <script src="./js/game/gameEntry.js"></script> -->
 
 </html>
