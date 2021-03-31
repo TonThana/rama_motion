@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt")
 const Admin = mongoose.model("admin")
+const TestData = mongoose.model("testdata")
 
 
 module.exports = app => {
@@ -13,9 +14,13 @@ module.exports = app => {
             bcrypt.compare(password, storedHash, (err, result) => {
                 if (err) next(err)
                 if (result) {
-                    res.send({ ok: true })
+                    // fetch 1st 10 entries (latest date first)
+                    TestData.find({}).sort({ servertimestamp: -1 }).limit(10).exec().then(data => {
+                        res.send({ ok: true, data })
+                    }).catch(next)
+
                 } else {
-                    res.send({ ok: false })
+                    res.send({ ok: false, })
                 }
             })
         })

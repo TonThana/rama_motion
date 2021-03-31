@@ -1,14 +1,14 @@
 import { game_init, game_exit } from './game/gameBegin'
-import RegisLandingArt from './regisArt'
-import { regis } from './regis'
-import { ruleEntry } from './rule'
-import { resultEntry } from './result'
+import RegisLandingArt from './regis/regisArt'
+import { regis } from './regis/regis'
+import { ruleEntry } from './rule/rule'
+import { resultEntry } from './result/result'
+import { adminEntry } from "./admin/adminEntry";
 
 const regisLandingArt = new RegisLandingArt()
 
 class Control {
     constructor() {
-        // console.log("CONTROL")
         this.regisPage = document.getElementById("regis")
         this.gamePage = document.getElementById("game")
         this.rulePage = document.getElementById("rule")
@@ -27,7 +27,7 @@ class Control {
             "game": [game_init],
             "rule": [ruleEntry],
             "result": [resultEntry],
-            "admin": [() => { }],
+            "admin": [adminEntry],
         },
             this.pagesExitFn = {
                 "game": [game_exit],
