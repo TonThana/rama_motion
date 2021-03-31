@@ -13,23 +13,28 @@ class Control {
         this.gamePage = document.getElementById("game")
         this.rulePage = document.getElementById("rule")
         this.resultPage = document.getElementById('result')
+        this.adminPage = document.getElementById("admin")
+
         this.pages = {
             "regis": this.regisPage,
             "game": this.gamePage,
             "rule": this.rulePage,
-            "result": this.resultPage
+            "result": this.resultPage,
+            "admin": this.adminPage
         }
         this.pagesEntryFn = {
             "regis": [regis, regisLandingArt.animate],
             "game": [game_init],
             "rule": [ruleEntry],
-            "result": [resultEntry]
+            "result": [resultEntry],
+            "admin": [() => { }],
         },
             this.pagesExitFn = {
                 "game": [game_exit],
                 "regis": [regisLandingArt.stopAnimate],
                 "rule": [() => { }],
-                "result": [() => { }]
+                "result": [() => { }],
+                "admin": [() => { }]
             }
     }
 

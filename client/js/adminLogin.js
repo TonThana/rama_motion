@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Control from './control'
 
 export function adminLogin() {
 
@@ -19,6 +20,9 @@ export function adminLogin() {
                 errorMsgDiv.style.color = '#a0e989'
                 errorMsgDiv.classList.remove("hidden")
                 // go on
+
+                Control.show('admin')
+
             } else {
 
                 errorMsgDiv.innerText = "wrong password"
