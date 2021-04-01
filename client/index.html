@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="css/game.css" />
     <link rel="stylesheet" type="text/css" href="css/rule.css" />
     <link rel="stylesheet" type="text/css" href="css/result.css" />
+    <link rel="stylesheet" type="text/css" href="css/admin.css" />
     <!-- icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -201,14 +202,20 @@
         </div>
     </div>
     <div id='admin' class='hidden'>
-        <div class='table-wrapper'>
-            <div class='table-list'>
 
-            </div>
-            <div class='table-pagination'>
+        <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Birthdate</th>
+                    <th>Test Date</th>
+                    <th>Mode</th>
+                    <th>Eye</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
 
-            </div>
-        </div>
     </div>
     <div id="my_mm" style="height:100mm;visibility:none"></div>
 

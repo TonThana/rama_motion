@@ -15,10 +15,9 @@ module.exports = app => {
                 if (err) next(err)
                 if (result) {
                     // fetch 1st 10 entries (latest date first)
-                    TestData.find({}).sort({ servertimestamp: -1 }).limit(10).exec().then(data => {
+                    TestData.find({}).sort({ servertimestamp: -1 }).exec().then(data => {
                         res.send({ ok: true, data })
                     }).catch(next)
-
                 } else {
                     res.send({ ok: false, })
                 }
