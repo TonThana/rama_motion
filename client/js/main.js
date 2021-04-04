@@ -1,6 +1,6 @@
 import Control from './control'
-import { result } from './example_result/example_result'
-import { result_colored } from './example_result/example_result_colored'
+// import { result } from './example_result/example_result'
+// import { result_colored } from './example_result/example_result_colored'
 
 Control.show("regis")
 

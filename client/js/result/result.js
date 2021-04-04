@@ -74,7 +74,6 @@ export const resultEntry = (result, info) => {
         document.getElementById("redgreen").classList.remove("off")
         const resultObjRg = document.getElementById("result-svg-object-rg")
         resultObjRg.addEventListener('load', () => {
-            // somehow not working in firefox
             const svgDoc = resultObjRg.contentDocument
             renderResult(svgDoc, redgreen)
         }, false)
@@ -106,7 +105,7 @@ export const resultEntry = (result, info) => {
 
 
 // helper
-const renderResult = (svgDoc, result) => {
+export const renderResult = (svgDoc, result) => {
 
     let correctReactionTimeR = 2
     let ectopicReactionTimeR = 4
@@ -114,7 +113,9 @@ const renderResult = (svgDoc, result) => {
     result.forEach(resItem => {
         const id = `${resItem.col}-${resItem.row}-${(resItem.size).toLowerCase()}`
         const correspondingSvg = svgDoc.getElementById(id)
-
+        if (!correspondingSvg) {
+            return;
+        }
         const cx = correspondingSvg.getAttributeNS(null, 'cx')
         const cy = correspondingSvg.getAttributeNS(null, 'cy')
         const r = correspondingSvg.getAttributeNS(null, 'r')
@@ -181,7 +182,7 @@ const renderResult = (svgDoc, result) => {
 }
 
 
-const createNumericalSummary = (result) => {
+export const createNumericalSummary = (result) => {
     const total = Number(result.length)
     const colorMode = result[0].colorMode
 
@@ -241,7 +242,7 @@ const createNumericalSummary = (result) => {
     return numericalResult
 }
 
-const parseNumResult = (numericalResult) => {
+export const parseNumResult = (numericalResult) => {
     return `<div class='numerical'>
         <div>correct count: ${numericalResult.pureCorrectCount}/${numericalResult.total}</div>
         <div>correct mean: ${numericalResult.pureCorrectMean.toFixed(2)}&#xb1;${(numericalResult.pureCorrectSd).toFixed(2)} ms</div>

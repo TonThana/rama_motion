@@ -1,6 +1,7 @@
 
 import Control from "../control";
 import { DT_LOCALES } from "./locales";
+import { renderResult, createNumericalSummary, parseNumResult } from "../result/result";
 
 const DT_PREFIX = "jtable";
 const DT_TRIGGER = `[data-replace='${DT_PREFIX}']`;
@@ -16,7 +17,13 @@ export const adminEntry = (initialData) => {
     })
 }
 
-
+const ColName2ObjectKey = {
+    "Name": "name",
+    "Birthdate": "birthdate",
+    "Test Date": "testdate",
+    "Mode": "testtype",
+    "Eye": "eyeside"
+}
 
 class DataTable {
     constructor(el, data) {
@@ -27,7 +34,11 @@ class DataTable {
         this.locale = {}
         this.skipkey = ["__v", "_id", "servertimestamp", "rawgamedata", "numericalsummary"],
             this.includeKey = ["name", "birthdate", "testdate", "testtype", "eyeside"]
+
+
     }
+
+
     /**
      * Checks if elements has an ID assigned.
      * If not, generate one by current UNIX timestamp
@@ -55,30 +66,30 @@ class DataTable {
     * Encapsulates table's data in an array of objects
     * @returns {object[]}
     */
-    getData() {
-        let res = [],
-            props = [];
+    // getData() {
+    //     let res = [],
+    //         props = [];
 
-        this.el.querySelectorAll("thead th").forEach(col =>
-            props.push(col.innerHTML)
-        );
+    //     this.el.querySelectorAll("thead th").forEach(col =>
+    //         props.push(col.innerHTML)
+    //     );
 
-        this.el.querySelectorAll("tbody > tr").forEach(row => {
-            let item = {};
-            row.querySelectorAll("td").forEach((col, i) =>
-                item[props[i]] = col.innerHTML
-            );
-            res.push(item);
-        });
+    //     this.el.querySelectorAll("tbody > tr").forEach(row => {
+    //         let item = {};
+    //         row.querySelectorAll("td").forEach((col, i) =>
+    //             item[props[i]] = col.innerHTML
+    //         );
+    //         res.push(item);
+    //     });
 
-        return res;
-    }
+    //     return res;
+    // }
 
     /**
      * Arrange given data array into the table
      * @param {object[]} data - the given data array
      */
-    printData(data) {
+    printData = (data) => {
 
         let tbody = this.el.querySelector("tbody");
         tbody.innerHTML = "";
@@ -95,32 +106,130 @@ class DataTable {
             });
 
             // extra column for result view
+            const key = o._id
             let resBtnCol = document.createElement("td")
-            const toggleBtn = document.createElement("button")
-            toggleBtn.setAttribute('id', `${o._id}`)
-            // for common styling
-            toggleBtn.classList.add("toggle-result-btn")
-            // for state
-            toggleBtn.classList.add("result-close")
-            toggleBtn.innerText = "view"
-            toggleBtn.addEventListener(
-                'click', this.attachResultGraphEvent
-            )
+            const viewBtn = document.createElement("button")
 
-            resBtnCol.appendChild(toggleBtn)
+            viewBtn.setAttribute('id', `${key}`)
+            // for common styling
+
+            viewBtn.innerText = "view"
+            viewBtn.addEventListener(
+                'click', this.showResultGraph
+            )
+            viewBtn.setAttribute("class", 'minimal-button')
+            viewBtn.style.padding = "0.3rem 0.3rem"
+            resBtnCol.appendChild(viewBtn)
             row.appendChild(resBtnCol)
             tbody.appendChild(row);
+
+            let auxRow = document.createElement("tr")
+            auxRow.setAttribute("id", `auxRow-${key}`)
+            auxRow.setAttribute("class", "hidden")
+            let auxCol = document.createElement("td")
+            auxCol.setAttribute("colspan", 6)
+            auxRow.appendChild(auxCol)
+            tbody.appendChild(auxRow)
+
+            // add this.resulttable to auxCol
+            const resulttable = document.querySelector("#result-table").cloneNode(true)
+
+            resulttable.setAttribute("class", 'resulttable')
+
+            const byNumSection = resulttable.querySelector("#blueyellow-numerical")
+            const rgNumSection = resulttable.querySelector("#redgreen-numerical")
+            const kwNumSection = resulttable.querySelector("#blackwhite-numerical")
+
+            const by = resulttable.querySelector("#blueyellow")
+            const byObj = by.querySelector("object")
+            const rg = resulttable.querySelector("#redgreen")
+            const rgObj = rg.querySelector("object")
+            const kw = resulttable.querySelector("#blackwhite")
+            const kwObj = kw.querySelector("object")
+
+
+            if (o.rawgamedata[0].colorMode === 'kw') {
+                // dont need by and rg
+                by.parentNode.removeChild(by)
+                rg.parentNode.removeChild(rg)
+
+                // change remaining id to uniq
+                // const kwId = this.genUniqId(kw, key)
+                const kwObjId = this.genUniqId(kwObj, key)
+                const kwNumId = this.genUniqId(kwNumSection, key)
+
+                const resultObj = kw.querySelector(`#${kwObjId}`)
+                resultObj.addEventListener('load', () => {
+                    const svgDoc = resultObj.contentDocument
+                    renderResult(svgDoc, o.rawgamedata)
+                })
+                resultObj.data = resultObj.data
+                const numericalKw = resulttable.querySelector(`#${kwNumId}`)
+                const numericalResultKw = createNumericalSummary(o.rawgamedata)
+                numericalKw.innerHTML = parseNumResult(numericalResultKw)
+
+            } else {
+                // dont need kw 
+                kw.parentNode.removeChild(kw)
+                // const rgId = this.genUniqId(rg, key)
+                // const byId = this.genUniqId(by, key)
+                const rgObjId = this.genUniqId(rgObj, key)
+                const byObjId = this.genUniqId(byObj, key)
+                const rgNumId = this.genUniqId(rgNumSection, key)
+                const byNumId = this.genUniqId(byNumSection, key)
+
+                const blueyellow = o.rawgamedata.filter(function (resItem) {
+                    return resItem.colorMode === "by"
+                })
+
+                const redgreen = o.rawgamedata.filter(function (resItem) {
+                    return resItem.colorMode === "rg"
+                })
+
+                // blueyellow
+                const resultObjBy = by.querySelector(`#${byObjId}`)
+                resultObjBy.addEventListener('load', () => {
+                    const svgDoc = resultObjBy.contentDocument
+                    renderResult(svgDoc, blueyellow)
+                })
+                resultObjBy.data = resultObjBy.data
+                const numericalBy = resulttable.querySelector(`#${byNumId}`)
+                const numericalResultBy = createNumericalSummary(blueyellow)
+                numericalBy.innerHTML = parseNumResult(numericalResultBy)
+
+                // redgreen
+                const resultObjRg = rg.querySelector(`#${rgObjId}`)
+                resultObjRg.addEventListener('load', () => {
+                    const svgDoc = resultObjRg.contentDocument
+                    renderResult(svgDoc, redgreen)
+                })
+                resultObjRg.data = resultObjRg.data
+                const numericalRg = resulttable.querySelector(`#${rgNumId}`)
+                const numericalResultRg = createNumericalSummary(redgreen)
+                numericalRg.innerHTML = parseNumResult(numericalResultRg)
+
+            }
+
+            auxCol.appendChild(resulttable)
 
         });
     }
 
+    genUniqId = (el, key) => {
+        const oldId = el.getAttribute("id")
+        el.removeAttribute('id')
+        const newId = `${oldId}-${key}`
+        el.setAttribute('id', newId)
+        return newId
+    }
 
-    attachResultGraphEvent = (ev) => {
+
+    showResultGraph = (ev) => {
         ev.preventDefault();
-        const resultObj = this.data.filter(obj => {
-            return obj._id == ev.target.id
-        })
-        const auxRow = document.getElementById(`auxRow-${resultObj[0]["testtype"]}-${resultObj[0]["_id"]}`)
+        // const auxRow = document.getElementById(`auxRow-${resultObj[0]["testtype"]}-${resultObj[0]["_id"]}`)
+
+        const key = ev.target.id;
+        const auxRow = document.getElementById(`auxRow-${key}`)
         auxRow.classList.contains('hidden') ? auxRow.classList.remove('hidden') : auxRow.classList.add('hidden')
     }
 
@@ -256,7 +365,8 @@ class DataTable {
      * @param {string} prop - the property, according to which, to sort data 
      * @param {1 | -1} way - sorting way, can be either 1 for "ascending" or -1 for "descending" 
      */
-    changeOrder(prop, way) {
+    changeOrder(colhead, way) {
+        let prop = ColName2ObjectKey[colhead]
         let start = this.perPage * (this.currPage - 1),
             end = this.data.length > this.perPage ? start + this.perPage : this.data.length,
             sorted = this.data.sort((a, b) => a[prop] > b[prop] ? way : -way);

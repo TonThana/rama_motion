@@ -1,5 +1,4 @@
 #admin {
-
     height: 100%;
     width: 100%;
     overflow-y: scroll;
@@ -23,8 +22,8 @@
 .jtable {
     margin: 0 auto;
     padding: 10px;
-    width: 80%;
-    /* overflow-x: hidden; */
+    width: 95%;
+    overflow-x: auto;
 }
 
 .jtable__table {
@@ -78,7 +77,7 @@
     border-radius: .25em;
     background-color: white;
     border-spacing: 0;
-    table-layout: fixed;
+    table-layout: initial;
     margin-top: .5em;
     width: 100%;
     overflow-x: auto;
@@ -95,6 +94,7 @@
     border-bottom: solid .01em #d0d0d0;
     border-right: solid .01em #d0d0d0;
 }
+
 
 .jtable table tr:last-child>td {
     border-bottom: none;
@@ -176,4 +176,13 @@
     .jtable table {
         table-layout: initial;
     }
+}
+
+
+
+
+.resulttable object {
+
+    max-width: 500px;
+    max-height: 500px;
 }

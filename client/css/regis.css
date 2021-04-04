@@ -49,6 +49,7 @@
 }
 
 
+
 .minimal-button:hover {
     opacity: 0.85;
 }
@@ -61,6 +62,10 @@
     outline: thin dotted #444;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px;
+}
+
+#adminBtn {
+    margin-top: 10px;
 }
 
 
