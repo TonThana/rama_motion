@@ -66,7 +66,11 @@ export const game_init = (data) => {
         // // // small
         for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
             for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
-                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "kw"))
+                if (col % 2 === row % 2) {
+                    // even-even odd-odd otherwise discard (dont add to array)
+                    circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "kw"))
+                }
+
             }
         }
         // // // medium
@@ -86,7 +90,11 @@ export const game_init = (data) => {
         // small 1
         for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
             for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
-                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "rg"))
+
+                if (col % 2 === row % 2) {
+                    circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "rg"))
+                }
+
             }
         }
         // medium 1
@@ -104,7 +112,10 @@ export const game_init = (data) => {
         // small 2
         for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
             for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
-                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "by"))
+                if (col % 2 === row % 2) {
+                    circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "by"))
+                }
+
             }
         }
         // medium 2
@@ -189,7 +200,7 @@ async function startMotion() {
         // if (i === 0) console.log("START!")
         // lengthen duration actual
 
-        let waitTime = getRandomInt(1000, 2000)
+        let waitTime = getRandomInt(1000, 3000)
         await shuffled[i].animate()
         // console.log("waitTime: ", waitTime)
         // 0 -> waitTime

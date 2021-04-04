@@ -38,9 +38,9 @@
         </div>
 
         <div id="modal-buttons-group">
-            <button data-to="aboutusModal" id="aboutusbtn" class="jsModalTrigger karla">About us</button>
+            <button data-to="aboutusModal" id="aboutusbtn" class="jsModalTrigger karla minimal-button">About us</button>
             <br>
-            <button data-to="adminModal" id="adminBtn" class='jsModalTrigger karla'>Admin</button>
+            <button data-to="adminModal" id="adminBtn" class='jsModalTrigger karla minimal-button'>Admin</button>
         </div>
         <!-- admin modal -->
         <div id="adminModal" class='modal'>
@@ -165,13 +165,13 @@
         </div>
     </div>
     <div id='result' class="hidden">
-        <div id="result-info" class="sarabun">
+        <div id="result-info" class="karla">
             <div id="identity"></div>
             <div id="birthdate"></div>
             <div id="test-type"></div>
             <div id="date-time"></div>
         </div>
-        <table id='result-table' style="width:100%" class="open-sans">
+        <table id='result-table' style="width:100%" class="karla">
             <tr id='result-heading'>
                 <th>Result</th>
                 <th>Graphical Representation</th>
@@ -179,28 +179,29 @@
             </tr>
             <tr id="blackwhite" class="off">
                 <td>Black/White</td>
-                <td><object data="./svgs/visual_result.svg" type="image/svg+xml" id="result-svg-object"></object></td>
+                <td><object data="./svgs/visual_result_dec.svg" type="image/svg+xml" id="result-svg-object"></object>
+                </td>
                 <td id="blackwhite-numerical">numerical summary</td>
             </tr>
             <tr id="blueyellow" class="off">
                 <td>Blue/Yellow</td>
-                <td><object data="./svgs/visual_result.svg" type="image/svg+xml" id="result-svg-object-by"></object>
+                <td><object data="./svgs/visual_result_dec.svg" type="image/svg+xml" id="result-svg-object-by"></object>
                 </td>
                 <td id="blueyellow-numerical">numerical summary</td>
             </tr>
             <tr id="redgreen" class="off">
                 <td>Red/Green</td>
-                <td><object data="./svgs/visual_result.svg" type="image/svg+xml" id="result-svg-object-rg"></object>
+                <td><object data="./svgs/visual_result_dec.svg" type="image/svg+xml" id="result-svg-object-rg"></object>
                 </td>
                 <td id="redgreen-numerical">numerical summary</td>
             </tr>
 
         </table>
         <div id="result-button">
-            <button class='sarabun' type="submit" id="result-button-home">กำลังบันทึกข้อมูล</button>
+            <button class='sarabun minimal-button' type="submit" id="result-button-home">กำลังบันทึกข้อมูล</button>
         </div>
     </div>
-    <div id='admin' class='hidden'>
+    <div id='admin' class='hidden karla'>
 
         <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
             <thead>
@@ -215,7 +216,8 @@
             </thead>
             <tbody></tbody>
         </table>
-        <div id="admin-button-div"><button class='sarabun' type="submit" id="admin-button-home">กลับสู่หน้าแรก</button>
+        <div id="admin-button-div"><button class='sarabun minimal-button' type="submit"
+                id="admin-button-home">กลับสู่หน้าแรก</button>
         </div>
     </div>
     <div id="my_mm" style="height:100mm;visibility:none"></div>

@@ -1,13 +1,13 @@
 import Control from './control'
-// import { result } from './example_result/example_result'
-// import { result_colored } from './example_result/example_result_colored'
+import { result } from './example_result/example_result'
+import { result_colored } from './example_result/example_result_colored'
 
 Control.show("regis")
 
-// temp bypass to result
+// // temp bypass to result
 // let testdata = {
-//     name: "test ton",
-//     testType: "colored",
+//     name: "test ton ทดสอบ",
+//     testType: "blackwhite",
 //     eye: "both",
 //     birthdate: "1996-08-20"
 // }

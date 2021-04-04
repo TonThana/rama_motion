@@ -32,38 +32,36 @@
 }
 
 /* buttons admin about */
-#aboutusbtn {
+.minimal-button {
+    display: inline-block;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border: 0;
+    border-radius: 0.317rem;
+    background-color: #aaa;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1.5;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
 
-    background: none;
-    color: rgb(83, 85, 240);
-    padding: 0.5em;
-    font-size: 1em;
-    outline: none;
-    border-color: #58cced;
 }
 
 
-#aboutusbtn:hover {
-    border-color: rgb(83, 85, 240);
-    color: #58cced;
+.minimal-button:hover {
+    opacity: 0.85;
 }
 
-
-#adminBtn {
-
-    background: none;
-    color: rgb(44, 163, 107);
-    padding: 0.5em;
-    font-size: 1em;
-    outline: none;
-    border-color: #56da67;
+.minimal-button:active {
+    box-shadow: inset 0 3px 4px hsla(0, 0%, 0%, 0.2);
 }
 
-#adminBtn:hover {
-    color: #56da67;
-    border-color: rgb(44, 163, 107);
+.minimal-button:focus {
+    outline: thin dotted #444;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
 }
-
 
 
 
