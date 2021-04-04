@@ -6,12 +6,8 @@ body {
     box-sizing: border-box;
 }
 
-.open-sans {
-    font-family: 'Open Sans', sans-serif;
-}
-
-.proza-libre {
-    font-family: 'Proza Libre', sans-serif;
+.karla {
+    font-family: 'Karla', sans-serif;
 }
 
 .sarabun {
@@ -24,15 +20,15 @@ body {
 
 #testControl {
     position: absolute;
-    top:40%;
+    top: 40%;
     left: 40%;
 }
 
 .hidden {
-    position: absolute  !important;
-    overflow: hidden  !important;
-    width: 0  !important;
-    height: 0  !important;
-    display: none  !important;
-    pointer-events: none  !important;
+    position: absolute !important;
+    overflow: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+    pointer-events: none !important;
 }

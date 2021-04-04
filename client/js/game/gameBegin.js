@@ -144,7 +144,7 @@ export const game_init = (data) => {
     textCounter.setAttributeNS(null, "x", oneBoxWidth * NUMBER_OF_COLS / 2 + 10)
     textCounter.setAttributeNS(null, "y", oneBoxWidth * NUMBER_OF_ROWS / 2 + 10)
     textCounter.setAttributeNS(null, 'id', 'counter')
-    textCounter.setAttributeNS(null, "class", 'proza-libre')
+    textCounter.setAttributeNS(null, "class", 'karla')
 
 
     parentSvg.appendChild(textCounter)
