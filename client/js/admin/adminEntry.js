@@ -1,4 +1,5 @@
 
+import Control from "../control";
 import { DT_LOCALES } from "./locales";
 
 const DT_PREFIX = "jtable";
@@ -7,6 +8,12 @@ export const adminEntry = (initialData) => {
     console.log(initialData)
     document.querySelectorAll(DT_TRIGGER)
         .forEach(el => new DataTable(el, initialData).init());
+
+    const homeButton = document.getElementById("admin-button-home")
+    homeButton.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        Control.show("regis")
+    })
 }
 
 
@@ -18,7 +25,8 @@ class DataTable {
         this.currPage = 1;
         this.perPage = 10;
         this.locale = {}
-        this.skipkey = ["__v", "_id", "servertimestamp", "rawgamedata", "numericalsummary"]
+        this.skipkey = ["__v", "_id", "servertimestamp", "rawgamedata", "numericalsummary"],
+            this.includeKey = ["name", "birthdate", "testdate", "testtype", "eyeside"]
     }
     /**
      * Checks if elements has an ID assigned.
@@ -34,7 +42,7 @@ class DataTable {
     */
     getPgMessage() {
         let start = (this.currPage - 1) * this.perPage + 1
-        let tot = this.el.querySelectorAll("tbody tr").length - 1;
+        let tot = this.el.querySelectorAll("tbody tr.textdata").length - 1;
         let end = start + tot;
 
         document.querySelector(`#${this.el.id}_pgdisplay`).innerHTML =
@@ -77,20 +85,43 @@ class DataTable {
 
         data.forEach(o => {
             let row = document.createElement("tr");
-
+            row.classList.add('textdata')
             Object.keys(o).forEach(k => {
-                if (this.skipkey.includes(k)) {
-                    return
-                } else {
+                if (this.includeKey.includes(k)) {
                     let col = document.createElement("td");
                     col.innerHTML = o[k];
                     row.appendChild(col);
                 }
-
             });
 
+            // extra column for result view
+            let resBtnCol = document.createElement("td")
+            const toggleBtn = document.createElement("button")
+            toggleBtn.setAttribute('id', `${o._id}`)
+            // for common styling
+            toggleBtn.classList.add("toggle-result-btn")
+            // for state
+            toggleBtn.classList.add("result-close")
+            toggleBtn.innerText = "view"
+            toggleBtn.addEventListener(
+                'click', this.attachResultGraphEvent
+            )
+
+            resBtnCol.appendChild(toggleBtn)
+            row.appendChild(resBtnCol)
             tbody.appendChild(row);
+
         });
+    }
+
+
+    attachResultGraphEvent = (ev) => {
+        ev.preventDefault();
+        const resultObj = this.data.filter(obj => {
+            return obj._id == ev.target.id
+        })
+        const auxRow = document.getElementById(`auxRow-${resultObj[0]["testtype"]}-${resultObj[0]["_id"]}`)
+        auxRow.classList.contains('hidden') ? auxRow.classList.remove('hidden') : auxRow.classList.add('hidden')
     }
 
     /**
@@ -119,7 +150,7 @@ class DataTable {
             let cond = false;
             for (let k in d) {
 
-                if (!this.skipkey.includes(k)) {
+                if (this.includeKey.includes(k)) {
                     cond = cond || String(d[k]).includes(key)
                 }
 

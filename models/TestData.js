@@ -29,7 +29,8 @@ const testData = new Schema({
         pureCorrectMediumSd: Number,
         pureCorrectLargeCount: Number,
         pureCorrectLargeMean: Number,
-        pureCorrectLargeSd: Number
+        pureCorrectLargeSd: Number,
+        colorMode: String
     }],
     servertimestamp: Date
 })

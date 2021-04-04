@@ -16,9 +16,9 @@ export function adminLogin() {
 
         axios.post("/api/adminAuthorise", { password }).then(res => {
             if (res.data.ok) {
-                errorMsgDiv.innerText = "accepted, redirecting"
-                errorMsgDiv.style.color = '#a0e989'
-                errorMsgDiv.classList.remove("hidden")
+                errorMsgDiv.innerText = ""
+                errorMsgDiv.style.color = ''
+                errorMsgDiv.classList.add("hidden")
                 // go on
                 if (res.data.hasOwnProperty("data")) {
                     Control.show('admin', [res.data.data])

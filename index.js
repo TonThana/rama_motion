@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // // testing password salt + hash
 // const saltRounds = 10;
-// const password = 'ramatmdp0939289451x'
+// const password = '1234'
 
 
 // const Admin = mongoose.model("admin")
