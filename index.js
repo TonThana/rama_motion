@@ -36,14 +36,14 @@ if (process.env.NODE_ENV === 'production') {
 
 
 // // testing password salt + hash
-// const saltRounds = 10;
-// const password = '1234'
+const saltRounds = 10;
+const password = 'ramatmdp'
 
 
-// const Admin = mongoose.model("admin")
-// bcrypt.hash(password, saltRounds, function (err, hash) {
-//     new Admin({ password: hash }).save()
-// });
+const Admin = mongoose.model("admin")
+bcrypt.hash(password, saltRounds, function (err, hash) {
+    new Admin({ password: hash }).save()
+});
 
 
 const PORT = process.env.PORT || 5000
