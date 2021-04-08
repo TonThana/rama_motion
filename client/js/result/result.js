@@ -113,8 +113,9 @@ export const renderResult = (svgDoc, result) => {
     result.forEach(resItem => {
         const id = `${resItem.col}-${resItem.row}-${(resItem.size).toLowerCase()}`
         const correspondingSvg = svgDoc.getElementById(id)
-        console.log(correspondingSvg)
+
         if (!correspondingSvg) {
+            console.log(id)
             return;
         }
         const cx = correspondingSvg.getAttributeNS(null, 'cx')

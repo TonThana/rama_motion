@@ -23,8 +23,8 @@ function reportError(target, errorText) {
 }
 
 function okProceed(target) {
-    target.style.color = '#03c04a'
-    target.innerHTML = "OK!"
+    // target.style.color = '#03c04a'
+    target.innerHTML = ""
     // console.log("PROCEED")
     Control.show("rule", [data])
     return
