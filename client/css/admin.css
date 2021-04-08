@@ -90,7 +90,7 @@
 .jtable table tr>th,
 .jtable table tr>td {
     padding: .5em 1em;
-    text-align: left;
+    text-align: center;
     border-bottom: solid .01em #d0d0d0;
     border-right: solid .01em #d0d0d0;
 }

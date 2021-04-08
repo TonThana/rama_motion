@@ -34,8 +34,6 @@ class DataTable {
         this.locale = {}
         this.skipkey = ["__v", "_id", "servertimestamp", "rawgamedata", "numericalsummary"],
             this.includeKey = ["name", "birthdate", "testdate", "testtype", "eyeside"]
-
-
     }
 
 

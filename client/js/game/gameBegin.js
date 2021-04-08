@@ -91,7 +91,8 @@ export const game_init = (data) => {
         for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
             for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
 
-                if (col % 2 === row % 2) {
+                if (col % 2 === 0 && row % 2 === 0) {
+                    console.log(col, row)
                     circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "rg"))
                 }
 
@@ -112,7 +113,7 @@ export const game_init = (data) => {
         // small 2
         for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
             for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
-                if (col % 2 === row % 2) {
+                if (col % 2 === 0 && row % 2 === 0) {
                     circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "by"))
                 }
 
@@ -200,7 +201,7 @@ async function startMotion() {
         // if (i === 0) console.log("START!")
         // lengthen duration actual
 
-        let waitTime = getRandomInt(1000, 3000)
+        let waitTime = getRandomInt(750, 3000)
         await shuffled[i].animate()
         // console.log("waitTime: ", waitTime)
         // 0 -> waitTime

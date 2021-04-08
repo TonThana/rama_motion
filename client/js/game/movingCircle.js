@@ -4,7 +4,7 @@ import getRandomItem from '../utils/getRandomItem'
 import shuffle from '../utils/shuffle'
 import { SMALL, MEDIUM } from './gameBegin'
 
-export const ANIM_DURATION = 750
+export const ANIM_DURATION = 500
 
 export class MovingCircle {
     // represent 1 moving circle
