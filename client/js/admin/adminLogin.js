@@ -34,7 +34,7 @@ export function adminLogin() {
                 errorMsgDiv.classList.remove("hidden")
             }
         }).catch(err => {
-            console.log(err)
+            // console.log(err)
             errorMsgDiv.innerText = "server error"
         })
     }

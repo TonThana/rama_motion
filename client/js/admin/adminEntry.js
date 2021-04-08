@@ -6,7 +6,7 @@ import { renderResult, createNumericalSummary, parseNumResult } from "../result/
 const DT_PREFIX = "jtable";
 const DT_TRIGGER = `[data-replace='${DT_PREFIX}']`;
 export const adminEntry = (initialData) => {
-    console.log(initialData)
+    // console.log(initialData)
     document.querySelectorAll(DT_TRIGGER)
         .forEach(el => new DataTable(el, initialData).init());
 

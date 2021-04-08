@@ -92,7 +92,7 @@ export const game_init = (data) => {
             for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
 
                 if (col % 2 === 0 && row % 2 === 0) {
-                    console.log(col, row)
+                    // console.log(col, row)
                     circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "rg"))
                 }
 
