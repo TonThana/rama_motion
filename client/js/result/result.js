@@ -118,6 +118,7 @@ export const renderResult = (svgDoc, result) => {
             console.log(id)
             return;
         }
+        console.log(correctReactionTimeR)
         const cx = correspondingSvg.getAttributeNS(null, 'cx')
         const cy = correspondingSvg.getAttributeNS(null, 'cy')
         const r = correspondingSvg.getAttributeNS(null, 'r')
