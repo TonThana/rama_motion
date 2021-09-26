@@ -6,6 +6,7 @@ import { SMALL, MEDIUM, LARGE } from '../game/gameBegin'
 import { ANIM_DURATION } from "../game/movingCircle";
 // In this case we can't access the SVG element directly as it's hidden inside the <object> element. So first, we have to get the object and then access its contentDocument. Once we have the SVG document, we can continue as before.
 export const resultEntry = (result, info) => {
+    console.log(result)
     // console.log(info.birthdate)
     // console.log(result)
     document.getElementById('identity').innerText = `Identifier: ${info.name || ''}`
@@ -14,92 +15,93 @@ export const resultEntry = (result, info) => {
 
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    //January is 0!
     let yyyy = today.getFullYear();
     today = yyyy + '-' + mm + '-' + dd
 
     document.getElementById("date-time").innerText = `Date: ${today}`
-    let numericalSummary = []
-    // check if result is bw or colored
-    if (result[0].colorMode === "kw") {
-        document.getElementById("blueyellow").classList.add("off")
-        document.getElementById("redgreen").classList.add("off")
+    // let numericalSummary = []
+    // // check if result is bw or colored
+    // if (result[0].colorMode === "kw") {
+    //     document.getElementById("blueyellow").classList.add("off")
+    //     document.getElementById("redgreen").classList.add("off")
 
-        const resultObj = document.getElementById("result-svg-object")
-        document.getElementById("blackwhite").classList.remove("off")
-        resultObj.addEventListener('load', () => {
+    //     const resultObj = document.getElementById("result-svg-object")
+    //     document.getElementById("blackwhite").classList.remove("off")
+    //     resultObj.addEventListener('load', () => {
 
-            const svgDoc = resultObj.contentDocument
-            renderResult(svgDoc, result)
-        })
-        resultObj.data = resultObj.data
+    //         const svgDoc = resultObj.contentDocument
+    //         renderResult(svgDoc, result)
+    //     })
+    //     resultObj.data = resultObj.data
 
-        const numericalKw = document.getElementById("blackwhite-numerical")
-        let numericalResultKw = createNumericalSummary(result)
-        numericalKw.innerHTML = parseNumResult(numericalResultKw)
+    //     const numericalKw = document.getElementById("blackwhite-numerical")
+    //     let numericalResultKw = createNumericalSummary(result)
+    //     numericalKw.innerHTML = parseNumResult(numericalResultKw)
 
-        numericalSummary.push(numericalResultKw)
+    //     numericalSummary.push(numericalResultKw)
 
-    } else {
-        // separate into by and rg
+    // } else {
+    //     // separate into by and rg
 
-        // turn off not related
-        document.getElementById("blackwhite").classList.add("off")
+    //     // turn off not related
+    //     document.getElementById("blackwhite").classList.add("off")
 
-        const blueyellow = result.filter(function (resItem) {
-            return resItem.colorMode === "by"
-        });
-        const redgreen = result.filter(function (resItem) {
-            return resItem.colorMode === "rg"
-        });
-        // append another table
-        // blue-yellow
-        const resultObjBy = document.getElementById("result-svg-object-by")
-        document.getElementById("blueyellow").classList.remove("off")
-        resultObjBy.addEventListener('load', () => {
-            const svgDoc = resultObjBy.contentDocument
-            renderResult(svgDoc, blueyellow)
+    //     const blueyellow = result.filter(function (resItem) {
+    //         return resItem.colorMode === "by"
+    //     });
+    //     const redgreen = result.filter(function (resItem) {
+    //         return resItem.colorMode === "rg"
+    //     });
+    //     // append another table
+    //     // blue-yellow
+    //     const resultObjBy = document.getElementById("result-svg-object-by")
+    //     document.getElementById("blueyellow").classList.remove("off")
+    //     resultObjBy.addEventListener('load', () => {
+    //         const svgDoc = resultObjBy.contentDocument
+    //         renderResult(svgDoc, blueyellow)
 
-        })
-        resultObjBy.data = resultObjBy.data
-        const numericalBy = document.getElementById("blueyellow-numerical")
-        let numericalResultBy = createNumericalSummary(blueyellow)
+    //     })
+    //     resultObjBy.data = resultObjBy.data
+    //     const numericalBy = document.getElementById("blueyellow-numerical")
+    //     let numericalResultBy = createNumericalSummary(blueyellow)
 
-        numericalBy.innerHTML = parseNumResult(numericalResultBy)
+    //     numericalBy.innerHTML = parseNumResult(numericalResultBy)
 
 
-        numericalSummary.push(numericalResultBy)
+    //     numericalSummary.push(numericalResultBy)
 
-        // red-green
-        document.getElementById("redgreen").classList.remove("off")
-        const resultObjRg = document.getElementById("result-svg-object-rg")
-        resultObjRg.addEventListener('load', () => {
-            const svgDoc = resultObjRg.contentDocument
-            renderResult(svgDoc, redgreen)
-        }, false)
-        resultObjRg.data = resultObjRg.data
-        const numericalRg = document.getElementById("redgreen-numerical")
-        let numericalResultRg = createNumericalSummary(redgreen)
-        numericalRg.innerHTML = parseNumResult(numericalResultRg)
-        numericalSummary.push(numericalResultRg)
-    }
+    //     // red-green
+    //     document.getElementById("redgreen").classList.remove("off")
+    //     const resultObjRg = document.getElementById("result-svg-object-rg")
+    //     resultObjRg.addEventListener('load', () => {
+    //         const svgDoc = resultObjRg.contentDocument
+    //         renderResult(svgDoc, redgreen)
+    //     }, false)
+    //     resultObjRg.data = resultObjRg.data
+    //     const numericalRg = document.getElementById("redgreen-numerical")
+    //     let numericalResultRg = createNumericalSummary(redgreen)
+    //     numericalRg.innerHTML = parseNumResult(numericalResultRg)
+    //     numericalSummary.push(numericalResultRg)
+    // }
 
-    const homeButton = document.getElementById("result-button-home")
+    // const homeButton = document.getElementById("result-button-home")
 
-    // disable while saving result to db.
-    const testdata = constructTestDataDbEntry(info.name, info.birthdate, today, info.testType, info.eye, result, numericalSummary)
+    // // disable while saving result to db.
+    // const testdata = constructTestDataDbEntry(info.name, info.birthdate, today, info.testType, info.eye, result, numericalSummary)
 
-    homeButton.disabled = true
-    axios.post("/api/testdata", testdata).then((res) => {
-        // console.log(res)
-        homeButton.innerText = "กลับสู่หน้าแรก"
-        homeButton.disabled = false
-    }).catch(console.error)
+    // homeButton.disabled = true
+    // axios.post("/api/testdata", testdata).then((res) => {
+    //     // console.log(res)
+    //     homeButton.innerText = "กลับสู่หน้าแรก"
+    //     homeButton.disabled = false
+    // }).catch(console.error)
 
-    homeButton.addEventListener("click", ev => {
-        ev.preventDefault()
-        Control.show("regis")
-    })
+    // homeButton.addEventListener("click", ev => {
+    //     ev.preventDefault()
+    //     Control.show("regis")
+    // })
 }
 
 

@@ -12,7 +12,8 @@ export class MovingCircle {
         this.colormode = colormode
         this.size = size
         this.box_width = box_width
-        this.circleIndex = `${row}-${col}-${size}`
+        this.circleClass = `${row}-${col}-${size}`
+        this.circleId = `${this.circleClass}-${this.colormode}`
         this.col = col
         this.row = row
         this.parentSvg = parentSvg
@@ -23,7 +24,12 @@ export class MovingCircle {
         this.circle.setAttributeNS(null, 'cy', this.config.cy);
         this.circle.setAttributeNS(null, 'r', this.config.r);
         this.circle.setAttributeNS(null, "class", "moving")
-        this.circle.setAttributeNS(null, "id", this.circleIndex)
+        this.circle.classList.add(this.circleClass)
+        this.circle.setAttribute('data-ok', "0")
+        // to reference result
+        this.circle.setAttributeNS(null, 'id', this.circleId)
+        // to reference result chart
+
         this.setColor()
         // this.circle.setAttributeNS(null, 'style', `fill: none; stroke: #000; stroke-width: 1px`);
         this.circle.style.transformOrigin = `${this.config.xOrigin}px ${this.config.yOrigin}px`
@@ -41,6 +47,14 @@ export class MovingCircle {
         // this.centercircle.setAttributeNS(null, 'r', "10");
         // this.centercircle.style.transformOrigin = `${this.config.xOrigin}px ${this.config.yOrigin}px`
         // parentSvg.appendChild(this.centercircle)
+
+        this.associatedCircles = []
+    }
+
+    findAssociatedCircles = () => {
+        this.associatedCircles = [...document.getElementsByClassName(`${this.circleClass}`)]
+        // console.log(this.associatedCircles)
+
     }
 
     collectData = () => {
@@ -51,15 +65,24 @@ export class MovingCircle {
             size: this.size,
             col: this.col,
             row: this.row,
+            id: this.circleId,
+            class: this.circleClass
         }
     }
 
     setColor = () => {
         // console.log(this.colormode)
-        if (this.colormode === "kw") {
-            this.circle.setAttributeNS(null, 'style', `fill: black; stroke: #000; stroke-width: 2px`);
+        if (this.colormode === 0) {
+            this.circle.setAttributeNS(null, 'style', `fill: hsl(0,0%,5%,0.1); stroke: none; stroke-width: 0px`);
             this.colorComb = ["none", "none"]
-        } else {
+        } else if (this.colormode === 1) {
+            this.circle.setAttributeNS(null, 'style', `fill: hsl(0,0%,5%,0.25); stroke: none; stroke-width: 0px`);
+            this.colorComb = ["none", "none"]
+        } else if (this.colormode === 2) {
+            this.circle.setAttributeNS(null, 'style', `fill: hsl(0,0%,5%,1); stroke: none; stroke-width: 0px`);
+            this.colorComb = ["none", "none"]
+        }
+        else {
             // set later - need animate
             this.circle.setAttributeNS(null, 'style', ` stroke-width: 2px`);
             this.colormode === "rg" ? this.colorComb = ["#FF0000", "#00FF00"] : this.colorComb = ["#FFFF00", "#0000FF"]
@@ -101,9 +124,29 @@ export class MovingCircle {
         // console.log(this.animId.progress, "correct")
         // save the time
         this.correctReaction = Number(this.animId.progress)
+        let updateOkCount = Number(this.circle.dataset.ok)
+        updateOkCount += 1
+        this.associatedCircles.forEach(c => {
+            c.setAttribute('data-ok', updateOkCount)
+        })
+
+        // no matter what at least 50
+
+
         // seek the end to trigger complete -> resolve
         this.animId.seek(this.animId.duration)
         this.stopAnimate()
+    }
+
+    necessityCheck = () => {
+        if (Number(this.circle.dataset.ok) === 2) {
+            this.animId.seek(this.animId.duration)
+            this.stopAnimate()
+            this.skip = true
+        } else {
+            this.show()
+        }
+
     }
 
     onKeyDownEctopic = (ev) => {
@@ -115,6 +158,7 @@ export class MovingCircle {
     }
 
     animate = () => {
+        console.log(this.circle.dataset.ok)
         let direction = getRandomItem([1, -1])
 
         // console.log(this.colorComb)
@@ -147,7 +191,9 @@ export class MovingCircle {
                 loop: false,
                 begin: () => {
                     // console.log("BEGIN")
-                    this.show()
+
+
+                    this.necessityCheck()
                 },
                 // currently trigger twice
                 complete: () => {
@@ -180,25 +226,30 @@ export class MovingCircle {
     }
 
     postAnimate(waitTime) {
-        window.addEventListener("keydown", this.onKeyDownEctopic)
-        return new Promise(resolve => {
-            this.animIdEctopic = anime({
-                duration: waitTime,
-                autoplay: false,
-                loop: false,
-                begin: () => {
-                    // console.log("wait begin")
-                },
-                // currently trigger twice
-                complete: () => {
-                    // console.log("wait complete")
-                    window.removeEventListener("keydown", this.onKeyDownEctopic)
-                    resolve()
-                },
-            })
+        if (!this.skip) {
+            window.addEventListener("keydown", this.onKeyDownEctopic)
+            return new Promise(resolve => {
+                this.animIdEctopic = anime({
+                    duration: waitTime,
+                    autoplay: false,
+                    loop: false,
+                    begin: () => {
+                        // console.log("wait begin")
+                    },
+                    // currently trigger twice
+                    complete: () => {
+                        // console.log("wait complete")
+                        window.removeEventListener("keydown", this.onKeyDownEctopic)
+                        resolve()
+                    },
+                })
 
-            this.animIdEctopic.play()
-        })
+                this.animIdEctopic.play()
+            })
+        } else {
+            return new Promise(resolve => resolve())
+        }
+
     }
 
 

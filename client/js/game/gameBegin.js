@@ -7,7 +7,9 @@ import Control from '../control'
 
 // some variables
 let SCREEN_WIDTH, SCREEN_HEIGHT
-let circles = []
+let circles0 = []
+let circles1 = []
+let circles2 = []
 export const SMALL = "small"
 export const MEDIUM = "medium"
 export const LARGE = "large"
@@ -16,6 +18,7 @@ let info = null
 
 export const game_init = (data) => {
     info = data
+    // mode = colored / black or white
     const mode = data.testType
     const screenSize = getScreenSize()
     SCREEN_WIDTH = screenSize.width
@@ -64,74 +67,90 @@ export const game_init = (data) => {
     // // small
     if (mode === 'blackwhite') {
         // // // small
-        for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
-                if (col % 2 === row % 2) {
-                    // even-even odd-odd otherwise discard (dont add to array)
-                    circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "kw"))
-                }
+        // for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
+        //     for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
+        //         if (col % 2 === row % 2) {
+        //             // even-even odd-odd otherwise discard (dont add to array)
+        //             circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "kw"))
+        //         }
 
-            }
-        }
+        //     }
+        // }
         // // // medium
+        // first layer - PALEST 0.1
         for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
             for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
-                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, "kw"))
+                circles0.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, 0))
             }
         }
+        // second layer - opacity 0.25
+        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+                circles1.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, 1))
+            }
+        }
+        // third layer - opacity 1
+        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
+            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+                circles2.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, 2))
+            }
+        }
+
         // // // large 1 for each quadrant - special case needed 
-        for (let col = 0; col < NUMBER_OF_COLS / 4; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS / 4; row += 1) {
-                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "kw"))
-            }
-        }
-    } else if (mode === 'colored') {
-        // 2nd test
-        // small 1
-        for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
-
-                if (col % 2 === 0 && row % 2 === 0) {
-                    // console.log(col, row)
-                    circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "rg"))
-                }
-
-            }
-        }
-        // medium 1
-        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
-                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, "rg"))
-            }
-        }
-        // large 1 for each quadrant - special case needed 
-        for (let col = 0; col < NUMBER_OF_COLS / 4; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS / 4; row += 1) {
-                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "rg"))
-            }
-        }
-        // small 2
-        for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
-                if (col % 2 === 0 && row % 2 === 0) {
-                    circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "by"))
-                }
-
-            }
-        }
-        // medium 2
-        for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
-                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, "by"))
-            }
-        }
-        // large 2 
-        for (let col = 0; col < NUMBER_OF_COLS / 4; col += 1) {
-            for (let row = 0; row < NUMBER_OF_ROWS / 4; row += 1) {
-                circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "by"))
-            }
-        }
+        // for (let col = 0; col < NUMBER_OF_COLS / 4; col += 1) {
+        //     for (let row = 0; row < NUMBER_OF_ROWS / 4; row += 1) {
+        //         circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "kw"))
+        //     }
+        // }
     }
+    // NO MORE COLORED
+    // else if (mode === 'colored') {
+    //     // 2nd test
+    //     // small 1
+    //     for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
+    //         for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
+
+    //             if (col % 2 === 0 && row % 2 === 0) {
+    //                 // console.log(col, row)
+    //                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "rg"))
+    //             }
+
+    //         }
+    //     }
+    //     // medium 1
+    //     for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
+    //         for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+    //             circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, "rg"))
+    //         }
+    //     }
+    //     // large 1 for each quadrant - special case needed 
+    //     for (let col = 0; col < NUMBER_OF_COLS / 4; col += 1) {
+    //         for (let row = 0; row < NUMBER_OF_ROWS / 4; row += 1) {
+    //             circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "rg"))
+    //         }
+    //     }
+    //     // small 2
+    //     for (let col = 0; col < NUMBER_OF_COLS; col += 1) {
+    //         for (let row = 0; row < NUMBER_OF_ROWS; row += 1) {
+    //             if (col % 2 === 0 && row % 2 === 0) {
+    //                 circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth, SMALL, "by"))
+    //             }
+
+    //         }
+    //     }
+    //     // medium 2
+    //     for (let col = 0; col < NUMBER_OF_COLS / 2; col += 1) {
+    //         for (let row = 0; row < NUMBER_OF_ROWS / 2; row += 1) {
+    //             circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 2, MEDIUM, "by"))
+    //         }
+    //     }
+    //     // large 2 
+    //     for (let col = 0; col < NUMBER_OF_COLS / 4; col += 1) {
+    //         for (let row = 0; row < NUMBER_OF_ROWS / 4; row += 1) {
+    //             circles.push(new MovingCircle(parentSvg, col, row, oneBoxWidth * 4, LARGE, "by"))
+    //         }
+    //     }
+    // }
 
 
 
@@ -146,7 +165,7 @@ export const game_init = (data) => {
 
     // position center of animation plane
     const centralCircle = document.getElementById("central-fix")
-    centralCircle.style.fill = 'black'
+    centralCircle.style.fill = 'red'
     // console.log(oneBoxWidth * NUMBER_OF_COLS / 2)
     centralCircle.setAttributeNS(null, 'cx', `${oneBoxWidth * NUMBER_OF_COLS / 2}px`)
     centralCircle.setAttributeNS(null, 'cy', `${oneBoxWidth * NUMBER_OF_ROWS / 2}px`)
@@ -172,8 +191,12 @@ export const game_init = (data) => {
 }
 
 export const game_exit = () => {
-    circles.forEach(el => el.destroy())
-    circles = []
+    circles0.forEach(el => el.destroy())
+    circles0 = []
+    circles1.forEach(el => el.destroy())
+    circles1 = []
+    circles2.forEach(el => el.destroy())
+    circles2 = []
 }
 
 
@@ -195,8 +218,21 @@ async function startMotion() {
 
     const textCounter = document.getElementById("counter")
 
-    const shuffled = shuffle(circles)
+    const shuffled = [...shuffle(circles0), ...shuffle(circles1), ...circles2]
+    // console.log(shuffled)
+
+
     const total = shuffled.length
+
+
+
+
+    for (let i = 0; i < total; i += 1) {
+        // once the dom has been created,we keep list of associated circle
+        shuffled[i].findAssociatedCircles()
+    }
+
+
     for (let i = 0; i < total; i += 1) {
         // if (i === 0) console.log("START!")
         // lengthen duration actual
