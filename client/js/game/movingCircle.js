@@ -25,6 +25,7 @@ export class MovingCircle {
         this.circle.setAttributeNS(null, 'r', this.config.r);
         this.circle.setAttributeNS(null, "class", "moving")
         this.circle.classList.add(this.circleClass)
+        // counter 
         this.circle.setAttribute('data-ok', "0")
         // to reference result
         this.circle.setAttributeNS(null, 'id', this.circleId)
@@ -158,7 +159,7 @@ export class MovingCircle {
     }
 
     animate = () => {
-        console.log(this.circle.dataset.ok)
+        // console.log(this.circle.dataset.ok)
         let direction = getRandomItem([1, -1])
 
         // console.log(this.colorComb)

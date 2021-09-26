@@ -5,10 +5,9 @@ import { mean, standardDeviation } from 'simple-statistics'
 import { SMALL, MEDIUM, LARGE } from '../game/gameBegin'
 import { ANIM_DURATION } from "../game/movingCircle";
 // In this case we can't access the SVG element directly as it's hidden inside the <object> element. So first, we have to get the object and then access its contentDocument. Once we have the SVG document, we can continue as before.
-export const resultEntry = (result, info) => {
-    console.log(result)
-    // console.log(info.birthdate)
-    // console.log(result)
+
+const printMetaInfo = (info) => {
+
     document.getElementById('identity').innerText = `Identifier: ${info.name || ''}`
     document.getElementById("birthdate").innerText = `Birthdate: ${info.birthdate}`
     document.getElementById("test-type").innerText = `Test type: ${info.testType}, ${info.eye} eye`
@@ -21,6 +20,35 @@ export const resultEntry = (result, info) => {
     today = yyyy + '-' + mm + '-' + dd
 
     document.getElementById("date-time").innerText = `Date: ${today}`
+}
+
+
+const generateResultSummary = (result) => {
+    // find true true 
+    const restructuredObj = {}
+    result.forEach(res => {
+        if (!restructuredObj.hasOwnProperty(res.class)) {
+            restructuredObj[res.class] = { id: [], hit: [] }
+        }
+        restructuredObj[res.class].id.push(res.id)
+
+        if (Number(res.correctReaction) !== 101 && Number(res.ectopicReaction) === 101) {
+            restructuredObj[res.class].hit.push(true)
+        } else {
+            restructuredObj[res.class].hit.push(false)
+        }
+    })
+    console.log(restructuredObj)
+}
+
+export const resultEntry = (result, info) => {
+
+    // console.log(info.birthdate)
+    console.log(result)
+    printMetaInfo(info)
+    generateResultSummary(result)
+
+
     // let numericalSummary = []
     // // check if result is bw or colored
     // if (result[0].colorMode === "kw") {
