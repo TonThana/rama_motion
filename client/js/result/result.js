@@ -37,7 +37,7 @@ const generateResultSummary = (result) => {
             restructuredObj[res.class].hit.push(false)
         }
     })
-    console.log(restructuredObj)
+    // console.log(restructuredObj)
 
     // find completely correct - 2 true 1 false and it's position
     const completeTrue = {}
@@ -89,10 +89,10 @@ const generateResultSummary = (result) => {
 export const resultEntry = (result, info) => {
 
     // console.log(info.birthdate)
-    console.log(result)
+    // console.log(result)
     printMetaInfo(info)
     const { completeTrue, falsePositive, falseNegative } = generateResultSummary(result)
-    console.log(completeTrue)
+    // console.log(completeTrue)
 
     // check if result is bw or colored
     if (result[0].colorMode === 0) {
@@ -147,11 +147,11 @@ export const renderResult = (svgDoc, completeTrue) => {
     // const svgGroup = svgDoc.getElementById("layer1")
 
     Object.keys(completeTrue).forEach(correctId => {
-        correspondingSvg.setAttributeNS(null, 'style', `fill:#fff`)
+
         const { position } = completeTrue[correctId]
 
         const correspondingSvg = svgDoc.getElementById(position)
-
+        correspondingSvg.setAttributeNS(null, 'style', `fill:#fff`)
         correspondingSvg.setAttributeNS(null, 'style', `fill:${COLORMODE[completeTrue[correctId]['color']]}`)
 
     })
