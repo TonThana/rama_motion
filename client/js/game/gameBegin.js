@@ -171,14 +171,14 @@ export const game_init = (data) => {
     centralCircle.setAttributeNS(null, 'cy', `${oneBoxWidth * NUMBER_OF_ROWS / 2}px`)
 
 
-    const textCounter = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-    textCounter.setAttributeNS(null, "x", oneBoxWidth * NUMBER_OF_COLS / 2 + 10)
-    textCounter.setAttributeNS(null, "y", oneBoxWidth * NUMBER_OF_ROWS / 2 + 10)
-    textCounter.setAttributeNS(null, 'id', 'counter')
-    textCounter.setAttributeNS(null, "class", 'karla')
+    // const textCounter = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+    // textCounter.setAttributeNS(null, "x", oneBoxWidth * NUMBER_OF_COLS / 2 + 10)
+    // textCounter.setAttributeNS(null, "y", oneBoxWidth * NUMBER_OF_ROWS / 2 + 10)
+    // textCounter.setAttributeNS(null, 'id', 'counter')
+    // textCounter.setAttributeNS(null, "class", 'karla')
 
 
-    parentSvg.appendChild(textCounter)
+    // parentSvg.appendChild(textCounter)
 
     anime({
         targets: "#central-fix",
@@ -216,7 +216,7 @@ export const getScreenSize = () => {
 async function startMotion() {
 
 
-    const textCounter = document.getElementById("counter")
+    // const textCounter = document.getElementById("counter")
 
     const shuffled = [...shuffle(circles0), ...shuffle(circles1), ...circles2]
     // console.log(shuffled)
@@ -241,7 +241,7 @@ async function startMotion() {
         await shuffled[i].animate()
         // console.log("waitTime: ", waitTime)
         // 0 -> waitTime
-        textCounter.textContent = `${i + 1}/${total}`
+        // textCounter.textContent = `${i + 1}/${total}`
         await shuffled[i].postAnimate(waitTime)
     }
     // console.log("collecting data")
